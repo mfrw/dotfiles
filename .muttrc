@@ -1,0 +1,40 @@
+#mfrw mutt config for home and iiitd
+folder-hook 'falakreyaz@gmail.com'   'source ~/.mutt/gmail'
+folder-hook 'falak16018@iiitd.ac.in' 'source ~/.mutt/iiitd'
+source ~/.mutt/gmail
+
+macro index <f2> '<sync-mailbox><refresh><enter-command>source ~/.mutt/gmail<enter><change-folder>!<enter>'
+macro index <f3> '<sync-mailbox><refresh><enter-command>source ~/.mutt/iiitd<enter><change-folder>!<enter>'
+
+bind index G imap-fetch-mail
+
+## General options
+set imap_check_subscribed
+set imap_keepalive = 300
+unset imap_passive
+set mail_check = 60
+set mbox_type=mbox
+set edit_headers=yes
+set sort=threads
+
+set sidebar_visible
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+set mail_check_stats
+bind index,pager B sidebar-toggle-visible
+set sidebar_short_path
+set sidebar_delim_chars="/"
+set sidebar_folder_indent
+# Indent folders whose names we've shortened
+set sidebar_indent_string="  "
+# # Indent with two spaces
+
+bind index,pager < sidebar-prev
+bind index,pager , sidebar-next
+bind index,pager M sidebar-open
+
+
+source /usr/share/doc/mutt/samples/vombadite.color
+
+#ssl
+#set ssl_use_sslv3=yes
+#set ssl_force_tls
