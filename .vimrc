@@ -63,6 +63,15 @@ Plugin 'xolox/vim-session'
 Plugin 'rust-lang/rust.vim'
 Plugin 'pangloss/vim-javascript'
 
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'corylanou/vim-present', {'for' : 'present'}
+Plugin 'ekalinin/Dockerfile.vim', {'for' : 'Dockerfile'}
+Plugin 'elzr/vim-json', {'for' : 'json'}
+Plugin 'fatih/vim-nginx' , {'for' : 'nginx'}
+Plugin 'godlygeek/tabular'
+Plugin 'hashivim/vim-hashicorp-tools'
+Plugin 'tmux-plugins/vim-tmux', {'for': 'tmux'}
+
 
 
 filetype plugin on
