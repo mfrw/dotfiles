@@ -28,7 +28,7 @@ Plugin 'gmarik/vundle'
 Plugin 'Yggdroot/indentLine'
 Plugin 'airblade/vim-gitgutter'
 "Plugin 'avelino/vim-bootstrap-updater'
-"Plugin 'bronson/vim-trailing-whitespace'
+Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'dahu/LearnVim'
 Plugin 'ervandew/supertab'
 Plugin 'fatih/vim-go'
@@ -53,7 +53,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'vim-scripts/c.vim'
+"Plugin 'vim-scripts/c.vim'
 Plugin 'vim-scripts/grep.vim'
 Plugin 'vimwiki/vimwiki'
 "Plugin 'xolox/vim-easytags'
@@ -71,6 +71,8 @@ Plugin 'fatih/vim-nginx' , {'for' : 'nginx'}
 Plugin 'godlygeek/tabular'
 Plugin 'hashivim/vim-hashicorp-tools'
 Plugin 'tmux-plugins/vim-tmux', {'for': 'tmux'}
+
+Plugin 'rhysd/vim-clang-format'
 
 
 
@@ -108,3 +110,6 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" clang-format
+autocmd FileType c,cpp,java ClangFormatAutoEnable
