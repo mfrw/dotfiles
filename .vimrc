@@ -73,6 +73,7 @@ Plugin 'hashivim/vim-hashicorp-tools'
 Plugin 'tmux-plugins/vim-tmux', {'for': 'tmux'}
 
 Plugin 'rhysd/vim-clang-format'
+Plugin 'Rip-Rip/clang_complete'
 
 
 
@@ -113,3 +114,4 @@ let g:syntastic_check_on_wq = 0
 
 " clang-format
 autocmd FileType c,cpp,java ClangFormatAutoEnable
+let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
