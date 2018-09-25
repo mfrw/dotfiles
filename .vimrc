@@ -1,4 +1,5 @@
 syntax enable
+set noincsearch
 set nocp
 set backspace=2
 "set noshowmode
@@ -33,7 +34,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'dahu/LearnVim'
 Plug 'ervandew/supertab'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'honza/vim-snippets'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'junegunn/fzf'
@@ -43,7 +44,7 @@ Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 "Plugin 'vim-syntastic/syntastic'
-"Plugin 'scrooloose/syntastic'
+"Plug 'scrooloose/syntastic'
 "Plugin 'sheerun/vim-polyglot'
 Plug 'sirver/ultisnips'
 Plug 'sjl/gundo.vim'
@@ -74,10 +75,13 @@ Plug 'godlygeek/tabular'
 Plug 'hashivim/vim-hashicorp-tools'
 Plug 'tmux-plugins/vim-tmux', {'for': 'tmux'}
 
-Plug 'rhysd/vim-clang-format'
+"Plug 'rhysd/vim-clang-format'
 "Plugin 'Rip-Rip/clang_complete'
 Plug 'lervag/vimtex'
 "Plugin 'nathanaelkane/vim-indent-guides'
+Plug 'rking/ag.vim'
+
+
 
 " Plugin list ends here
 call plug#end()
@@ -118,10 +122,11 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_go_checkers = ['govet', 'errcheck', 'go']
 
 " clang-format
-autocmd FileType c,cpp,java ClangFormatAutoEnable
-"let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+" autocmd FileType c,cpp,java ClangFormatAutoEnable
+" let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
 
 
 " Tagbar
@@ -162,3 +167,12 @@ let NERDTreeIgnore = ['\.pyc$', '\.o$', '\.so$', '\.a$']
 
 " Cope with gocode not working on VIM
 let g:go_gocode_propose_source = 1
+
+" Vim airline
+let g:airline#extensions#tabline#enabled = 1
+
+
+" This is from Modern VIM
+" FZF Ctrl+P
+nnoremap <C-p> :<C-u>FZF<CR>
+
