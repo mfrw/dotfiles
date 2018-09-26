@@ -15,74 +15,84 @@ set t_Co=256
 
 nnoremap <F5> :GundoToggle<CR>
 
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+call plug#begin('~/.vim/bundle')
+
+"filetype off
+"set rtp+=~/.vim/bundle/vundle/
+"call vundle#rc()
 
 " This is the Vundle package, which can be found on GitHub.
 " For GitHub repos, you specify plugins using the
 " 'user/repository' format
-Plugin 'gmarik/vundle'
+"Plugin 'gmarik/vundle'
 
 "Plugin 'Raimondi/delimitMate'
-Plugin 'Yggdroot/indentLine'
-Plugin 'airblade/vim-gitgutter'
+Plug 'Yggdroot/indentLine'
+Plug 'airblade/vim-gitgutter'
 "Plugin 'avelino/vim-bootstrap-updater'
-Plugin 'bronson/vim-trailing-whitespace'
-Plugin 'dahu/LearnVim'
-Plugin 'ervandew/supertab'
-Plugin 'fatih/vim-go'
-Plugin 'honza/vim-snippets'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
-Plugin 'majutsushi/tagbar'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'dahu/LearnVim'
+Plug 'ervandew/supertab'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'honza/vim-snippets'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'majutsushi/tagbar'
 "Plugin 'ludwig/split-manpage.vim'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'vim-syntastic/syntastic'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+"Plugin 'vim-syntastic/syntastic'
 "Plugin 'scrooloose/syntastic'
 "Plugin 'sheerun/vim-polyglot'
-Plugin 'sirver/ultisnips'
-Plugin 'sjl/gundo.vim'
-Plugin 'taglist.vim'
-Plugin 'tomasr/molokai'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'sirver/ultisnips'
+Plug 'sjl/gundo.vim'
+Plug 'vim-scripts/taglist.vim'
+Plug 'tomasr/molokai'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 "Plugin 'vim-scripts/c.vim'
-Plugin 'vim-scripts/grep.vim'
-Plugin 'vimwiki/vimwiki'
+Plug 'vim-scripts/grep.vim'
+"Plugin 'vimwiki/vimwiki'
 "Plugin 'xolox/vim-easytags'
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-session'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
 "Plugin 'kien/ctrlp.vim'
-Plugin 'rust-lang/rust.vim'
-Plugin 'pangloss/vim-javascript'
+Plug 'rust-lang/rust.vim'
+Plug 'pangloss/vim-javascript'
 
-Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'corylanou/vim-present', {'for' : 'present'}
-Plugin 'ekalinin/Dockerfile.vim', {'for' : 'Dockerfile'}
-Plugin 'elzr/vim-json', {'for' : 'json'}
-Plugin 'fatih/vim-nginx' , {'for' : 'nginx'}
-Plugin 'godlygeek/tabular'
-Plugin 'hashivim/vim-hashicorp-tools'
-Plugin 'tmux-plugins/vim-tmux', {'for': 'tmux'}
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'corylanou/vim-present', {'for' : 'present'}
+Plug 'ekalinin/Dockerfile.vim', {'for' : 'Dockerfile'}
+Plug 'elzr/vim-json', {'for' : 'json'}
+Plug 'fatih/vim-nginx' , {'for' : 'nginx'}
+Plug 'godlygeek/tabular'
+Plug 'hashivim/vim-hashicorp-tools'
+Plug 'tmux-plugins/vim-tmux', {'for': 'tmux'}
 
-Plugin 'rhysd/vim-clang-format'
-Plugin 'Rip-Rip/clang_complete'
+"Plugin 'rhysd/vim-clang-format'
+"Plugin 'Rip-Rip/clang_complete'
+Plug 'lervag/vimtex'
+"Plugin 'nathanaelkane/vim-indent-guides'
+Plug 'rking/ag.vim'
+
+
+
+" Plugin list ends here
+call plug#end()
 
 
 
 filetype plugin on
 filetype plugin indent on
 
-" GO Related Stuff
-let g:go_fmt_command = 'goimports'
-let g:go_info_mode = 'guru'
+"" GO Related Stuff
+"let g:go_fmt_command = 'goimports'
+"let g:go_info_mode = 'guru'
 
 
 
@@ -111,6 +121,96 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_go_checkers = ['govet', 'errcheck', 'go']
 
 " clang-format
-autocmd FileType c,cpp,java ClangFormatAutoEnable
+" autocmd FileType c,cpp,java ClangFormatAutoEnable
+" let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+
+
+" Tagbar
+
+" Rust
+let g:tagbar_type_rust = {
+			\ 'ctagstype' : 'rust',
+			\ 'kinds' : [
+			\'T:types,type definitions',
+			\'f:functions,function definitions',
+			\'g:enum,enumeration names',
+			\'s:structure names',
+			\'m:modules,module names',
+			\'c:consts,static constants',
+			\'t:traits',
+			\'i:impls,trait implementations',
+			\]
+			\}
+" Makefile
+let g:tagbar_type_make = {
+			\ 'kinds':[
+			\ 'm:macros',
+			\ 't:targets'
+			\ ]
+			\}
+" UltiSnips
+let g:tagbar_type_snippets = {
+			\ 'ctagstype' : 'snippets',
+			\ 'kinds' : [
+			\ 's:snippets',
+			\ ]
+			\ }
+
+" NERDTree
+
+let NERDTreeIgnore = ['\.pyc$', '\.o$', '\.so$', '\.a$']
+
+
+" Cope with gocode not working on VIM
+let g:go_gocode_propose_source = 1
+
+" Vim airline
+let g:airline#extensions#tabline#enabled = 1
+
+
+" This is from Modern VIM
+" FZF Ctrl+P
+nnoremap <C-p> :<C-u>FZF<CR>
+if has('nvim')
+	tnoremap <Esc> <C-\><C-n>
+	tnoremap <C-v><Esc> <Esc>
+endif
+
+"" From faith/dotfiles
+" ==================== vim-go ====================
+let g:go_fmt_fail_silently = 1
+let g:go_fmt_command = "goimports"
+
+let g:go_debug_windows = {
+      \ 'vars':  'leftabove 35vnew',
+      \ 'stack': 'botright 10new',
+\ }
+
+
+let g:go_test_prepend_name = 1
+let g:go_list_type = "quickfix"
+let g:go_auto_type_info = 0
+let g:go_auto_sameids = 0
+let g:go_info_mode = "gocode"
+
+let g:go_def_mode = "guru"
+let g:go_echo_command_info = 1
+let g:go_autodetect_gopath = 1
+let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+
+let g:go_highlight_space_tab_error = 0
+let g:go_highlight_array_whitespace_error = 0
+let g:go_highlight_trailing_whitespace_error = 0
+let g:go_highlight_extra_types = 0
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_types = 0
+let g:go_highlight_operators = 1
+let g:go_highlight_format_strings = 0
+let g:go_highlight_function_calls = 0
+
+let g:go_modifytags_transform = 'camelcase'
+let g:go_fold_enable = []
+
