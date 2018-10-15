@@ -89,6 +89,7 @@ Plug 'lervag/vimtex'
 Plug 'rking/ag.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'jceb/vim-orgmode'
+Plug 'mattn/emmet-vim'
 
 
 
