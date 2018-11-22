@@ -2,7 +2,7 @@ syntax enable
 set noincsearch
 set timeoutlen=300
 scriptencoding utf-8
-set encoding=utf-8
+set encoding=UTF-8
 "set scrolloff=2
 set nocp
 set nohls
@@ -90,6 +90,10 @@ Plug 'rking/ag.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'jceb/vim-orgmode'
 Plug 'mattn/emmet-vim'
+Plug 'wellle/targets.vim'
+Plug 'tpope/vim-unimpaired'
+" Plug 'ryanoasis/vim-devicons'
+Plug 'racer-rust/vim-racer'
 
 
 
@@ -232,3 +236,11 @@ let g:go_fold_enable = []
 "" Permanent Undo
 set undodir=~/.vim/vimdid
 set undofile
+
+
+"" Rust
+let g:racer_experimental_completer = 1
+set hidden
+autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
+autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
+autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
