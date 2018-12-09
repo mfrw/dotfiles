@@ -1,7 +1,13 @@
 syntax enable
+set noincsearch
+set timeoutlen=300
+scriptencoding utf-8
+set encoding=utf-8
+"set scrolloff=2
 set nocp
+set nohls
 set backspace=2
-"set noshowmode
+set noshowmode
 "syn on se title
 set tabstop=8
 set softtabstop=8
@@ -12,8 +18,10 @@ set nu
 set cindent
 set tags=./tags;
 set t_Co=256
+set nolist
+set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 
-nnoremap <F5> :GundoToggle<CR>
+" nnoremap <F5> :GundoToggle<CR>
 
 call plug#begin('~/.vim/bundle')
 
@@ -43,7 +51,7 @@ Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 "Plugin 'vim-syntastic/syntastic'
-"Plugin 'scrooloose/syntastic'
+"Plug 'scrooloose/syntastic'
 "Plugin 'sheerun/vim-polyglot'
 Plug 'sirver/ultisnips'
 Plug 'sjl/gundo.vim'
@@ -74,11 +82,18 @@ Plug 'godlygeek/tabular'
 Plug 'hashivim/vim-hashicorp-tools'
 Plug 'tmux-plugins/vim-tmux', {'for': 'tmux'}
 
-"Plugin 'rhysd/vim-clang-format'
+"Plug 'rhysd/vim-clang-format'
 "Plugin 'Rip-Rip/clang_complete'
 Plug 'lervag/vimtex'
-"Plugin 'nathanaelkane/vim-indent-guides'
+"Plug 'nathanaelkane/vim-indent-guides'
 Plug 'rking/ag.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'jceb/vim-orgmode'
+Plug 'vim-erlang/vim-erlang-runtime'
+Plug 'vim-erlang/vim-erlang-omnicomplete'
+Plug 'vim-erlang/vim-erlang-compiler'
+Plug 'vim-erlang/vim-erlang-tags'
+Plug 'vim-erlang/vim-erlang-skeletons'
 
 
 
@@ -99,7 +114,10 @@ filetype plugin indent on
 " Some random mappings
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType * map <leader>t :TagbarToggle <CR>
-map <leader>n <plug>NERDTreeTabsToggle<CR>
+au FileType * map <leader>n <plug>NERDTreeTabsToggle<CR>
+map <leader>f :NERDTreeFind<CR>
+map <leader>n :NERDTreeTabsToggle<CR>
+map <leader>g :Gstatus<CR>
 "au FileType * map <leader>n :NERDTreeToggle <CR>
 
 
@@ -169,6 +187,7 @@ let g:go_gocode_propose_source = 1
 
 " Vim airline
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 
 " This is from Modern VIM
@@ -181,7 +200,7 @@ endif
 
 "" From faith/dotfiles
 " ==================== vim-go ====================
-let g:go_fmt_fail_silently = 1
+"let g:go_fmt_fail_silently = 1
 let g:go_fmt_command = "goimports"
 
 let g:go_debug_windows = {
@@ -194,7 +213,7 @@ let g:go_test_prepend_name = 1
 let g:go_list_type = "quickfix"
 let g:go_auto_type_info = 0
 let g:go_auto_sameids = 0
-let g:go_info_mode = "gocode"
+"let g:go_info_mode = "gocode"
 
 let g:go_def_mode = "guru"
 let g:go_echo_command_info = 1
@@ -214,3 +233,6 @@ let g:go_highlight_function_calls = 0
 let g:go_modifytags_transform = 'camelcase'
 let g:go_fold_enable = []
 
+"" Permanent Undo
+set undodir=~/.vim/vimdid
+set undofile
