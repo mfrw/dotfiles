@@ -94,7 +94,9 @@ Plug 'vim-erlang/vim-erlang-omnicomplete'
 Plug 'vim-erlang/vim-erlang-compiler'
 Plug 'vim-erlang/vim-erlang-tags'
 Plug 'vim-erlang/vim-erlang-skeletons'
+Plug 'elixir-editors/vim-elixir'
 
+Plug 'racer-rust/vim-racer'
 
 
 " Plugin list ends here
@@ -236,3 +238,13 @@ let g:go_fold_enable = []
 "" Permanent Undo
 set undodir=~/.vim/vimdid
 set undofile
+"" Rust
+let g:racer_experimental_completer = 1
+set hidden
+autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
+autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
+autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
+au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gs <Plug>(rust-def-split)
+au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>gd <Plug>(rust-doc)
