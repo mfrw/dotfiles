@@ -21,6 +21,12 @@ set t_Co=256
 set nolist
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 
+" Avoid Bad habits
+nnoremap <Left> :echoe "Bad Habit: Use h"<CR>
+nnoremap <Right> :echoe "Bad Habit: Use l"<CR>
+nnoremap <Up> :echoe "Bad Habit: Use k"<CR>
+nnoremap <Down> :echoe "Bad Habit: Use j"<CR>
+
 " nnoremap <F5> :GundoToggle<CR>
 
 call plug#begin('~/.vim/bundle')
@@ -82,8 +88,8 @@ Plug 'godlygeek/tabular'
 Plug 'hashivim/vim-hashicorp-tools'
 Plug 'tmux-plugins/vim-tmux', {'for': 'tmux'}
 
-"Plug 'rhysd/vim-clang-format'
-"Plugin 'Rip-Rip/clang_complete'
+Plug 'rhysd/vim-clang-format'
+Plug 'Rip-Rip/clang_complete'
 Plug 'lervag/vimtex'
 "Plug 'nathanaelkane/vim-indent-guides'
 Plug 'rking/ag.vim'
@@ -94,6 +100,7 @@ Plug 'wellle/targets.vim'
 Plug 'tpope/vim-unimpaired'
 " Plug 'ryanoasis/vim-devicons'
 Plug 'racer-rust/vim-racer'
+Plug 'easymotion/vim-easymotion'
 
 
 
@@ -128,6 +135,7 @@ map <leader>g :Gstatus<CR>
 
 " Rust Related Stuff
 let g:rustfmt_autosave = 1
+let g:rustfmt_fail_silently = 0
 
 
 " Syntastic Recommended Settings
@@ -143,25 +151,13 @@ let g:syntastic_go_checkers = ['govet', 'errcheck', 'go']
 
 " clang-format
 " autocmd FileType c,cpp,java ClangFormatAutoEnable
-" let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+let g:clang_format#auto_format=1
+let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+let g:clang_complete_auto=0
 
 
 " Tagbar
 
-" Rust
-let g:tagbar_type_rust = {
-			\ 'ctagstype' : 'rust',
-			\ 'kinds' : [
-			\'T:types,type definitions',
-			\'f:functions,function definitions',
-			\'g:enum,enumeration names',
-			\'s:structure names',
-			\'m:modules,module names',
-			\'c:consts,static constants',
-			\'t:traits',
-			\'i:impls,trait implementations',
-			\]
-			\}
 " Makefile
 let g:tagbar_type_make = {
 			\ 'kinds':[
@@ -234,8 +230,8 @@ let g:go_modifytags_transform = 'camelcase'
 let g:go_fold_enable = []
 
 "" Permanent Undo
-set undodir=~/.vim/vimdid
-set undofile
+"set undodir=~/.vim/vimdid
+"set undofile
 
 
 "" Rust
