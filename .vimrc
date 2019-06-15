@@ -20,6 +20,7 @@ set tags=./tags;
 set t_Co=256
 set nolist
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+set maxmempattern=2000000
 
 " Avoid Bad habits
 nnoremap <Left> :echoe "Bad Habit: Use h"<CR>
@@ -99,13 +100,40 @@ Plug 'mattn/emmet-vim'
 Plug 'wellle/targets.vim'
 Plug 'tpope/vim-unimpaired'
 " Plug 'ryanoasis/vim-devicons'
-Plug 'racer-rust/vim-racer'
+"Plug 'racer-rust/vim-racer'
 Plug 'easymotion/vim-easymotion'
+Plug 'dag/vim-fish'
+"Plug 'Shougo/echodoc.vim'
+Plug 'autozimu/LanguageClient-neovim'
+"Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+"if has('nvim-disable')
+"	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"	Plug 'deoplete-plugins/deoplete-go'
+"	Plug 'deoplete-plugins/deoplete-clang'
+"	let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+"	let g:deoplete#enable_at_startup = 0
+"endif
+
 
 
 
 " Plugin list ends here
 call plug#end()
+
+autocmd BufReadPost *.rs setlocal filetype=rust
+
+" Required for operations modifying multiple buffers like rename.
+set hidden
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+    \ }
+
+" Automatically start language servers.
+let g:LanguageClient_autoStart = 1
+
+" Maps K to hover, gd to goto definition, F2 to rename
+"nnoremap <silent> K :call LanguageClient_textDocument_hover()
 
 
 
@@ -139,15 +167,15 @@ let g:rustfmt_fail_silently = 0
 
 
 " Syntastic Recommended Settings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_go_checkers = ['govet', 'errcheck', 'go']
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"let g:syntastic_go_checkers = ['govet', 'errcheck', 'go']
 
 " clang-format
 " autocmd FileType c,cpp,java ClangFormatAutoEnable
@@ -211,7 +239,7 @@ let g:go_auto_type_info = 0
 let g:go_auto_sameids = 0
 "let g:go_info_mode = "gocode"
 
-let g:go_def_mode = "guru"
+"let g:go_def_mode = "guru"
 let g:go_echo_command_info = 1
 let g:go_autodetect_gopath = 1
 let g:go_metalinter_autosave_enabled = ['vet', 'golint']
@@ -235,12 +263,37 @@ let g:go_fold_enable = []
 
 
 "" Rust
-let g:racer_experimental_completer = 1
+"let g:racer_experimental_completer = 1
 set hidden
-autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
-autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
-autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
-au FileType rust nmap gd <Plug>(rust-def)
-au FileType rust nmap gs <Plug>(rust-def-split)
-au FileType rust nmap gx <Plug>(rust-def-vertical)
-au FileType rust nmap <leader>gd <Plug>(rust-doc)
+"autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
+"autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
+"autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
+"au FileType rust nmap gd <Plug>(rust-def)
+"au FileType rust nmap gs <Plug>(rust-def-split)
+"au FileType rust nmap gx <Plug>(rust-def-vertical)
+"au FileType rust nmap <leader>gd <Plug>(rust-doc)
+
+" go extras
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+"let g:go_highlight_fields = 1
+"let g:go_highlight_functions = 1
+"let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+"let g:go_auto_sameids = 1
+"let g:go_auto_type_info = 1
+"highlight ColorColumn ctermbg=8
+"set colorcolumn=80
+
+
+
+" Rust
+let $RUST_BACKTRACE = 1
+let g:LanguageClient_loggingLevel = 'INFO'
+let g:LanguageClient_loggingFile =  expand('~/.local/share/nvim/LanguageClient.log')
+let g:LanguageClient_serverStderr = expand('~/.local/share/nvim/LanguageServer.log')
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
