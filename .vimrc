@@ -62,7 +62,7 @@ Plug 'scrooloose/nerdtree'
 "Plugin 'sheerun/vim-polyglot'
 Plug 'sirver/ultisnips'
 Plug 'sjl/gundo.vim'
-Plug 'vim-scripts/taglist.vim'
+"Plug 'vim-scripts/taglist.vim'
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -90,7 +90,7 @@ Plug 'hashivim/vim-hashicorp-tools'
 Plug 'tmux-plugins/vim-tmux', {'for': 'tmux'}
 
 Plug 'rhysd/vim-clang-format'
-Plug 'Rip-Rip/clang_complete'
+"Plug 'Rip-Rip/clang_complete'
 Plug 'lervag/vimtex'
 "Plug 'nathanaelkane/vim-indent-guides'
 Plug 'rking/ag.vim'
@@ -104,8 +104,11 @@ Plug 'tpope/vim-unimpaired'
 Plug 'easymotion/vim-easymotion'
 Plug 'dag/vim-fish'
 "Plug 'Shougo/echodoc.vim'
-Plug 'autozimu/LanguageClient-neovim'
-"Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'autozimu/LanguageClient-neovim'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 "if has('nvim-disable')
 "	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "	Plug 'deoplete-plugins/deoplete-go'
@@ -113,9 +116,21 @@ Plug 'autozimu/LanguageClient-neovim'
 "	let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
 "	let g:deoplete#enable_at_startup = 0
 "endif
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-
-
+" vim-maktaba
+Plug 'google/vim-maktaba'
+Plug 'google/vim-glaive'
+Plug 'google/vim-codefmt'
+Plug 'google/vim-selector'
+Plug 'google/vim-coverage'
+Plug 'google/vim-syncopate'
+Plug 'google/vim-codereview'
+Plug 'lotabout/skim'
+Plug 'lotabout/skim.vim'
+Plug 'dense-analysis/ale'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'chazy/cscope_maps'
 
 " Plugin list ends here
 call plug#end()
@@ -126,7 +141,11 @@ autocmd BufReadPost *.rs setlocal filetype=rust
 set hidden
 
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+    \ 'rust': ['rustup', 'run', 'beta', 'rls'],
+      "\ 'c' : ['clangd', '--resource-dir=','/Users/mfrw/clang9/'],
+      "\ 'cpp' : ['clangd', '--resource-dir=','/Users/mfrw/clang9/'],
+      \ 'python' : ['pyls'],
+      "\ 'go' : ['gopls'],
     \ }
 
 " Automatically start language servers.
@@ -180,7 +199,8 @@ let g:rustfmt_fail_silently = 0
 " clang-format
 " autocmd FileType c,cpp,java ClangFormatAutoEnable
 let g:clang_format#auto_format=1
-let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+"let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+let g:clang_library_path='/Users/mfrw/clang9/lib'
 let g:clang_complete_auto=0
 
 
@@ -200,6 +220,33 @@ let g:tagbar_type_snippets = {
 			\ 's:snippets',
 			\ ]
 			\ }
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
 
 " NERDTree
 
@@ -216,10 +263,15 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " This is from Modern VIM
 " FZF Ctrl+P
-nnoremap <C-p> :<C-u>FZF<CR>
+"nnoremap <C-p> :<C-u>FZF<CR>
+"if has('nvim')
+	"tnoremap <Esc> <C-\><C-n>
+	"tnoremap <C-v><Esc> <Esc>
+"endif
+nnoremap <C-p> :<C-u>SK<CR>
 if has('nvim')
-	tnoremap <Esc> <C-\><C-n>
-	tnoremap <C-v><Esc> <Esc>
+       tnoremap <Esc> <C-\><C-n>
+       tnoremap <C-v><Esc> <Esc>
 endif
 
 "" From faith/dotfiles
@@ -294,6 +346,15 @@ let $RUST_BACKTRACE = 1
 let g:LanguageClient_loggingLevel = 'INFO'
 let g:LanguageClient_loggingFile =  expand('~/.local/share/nvim/LanguageClient.log')
 let g:LanguageClient_serverStderr = expand('~/.local/share/nvim/LanguageServer.log')
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+function LC_maps()
+  if has_key(g:LanguageClient_serverCommands, &filetype)
+    nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<cr>
+    nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+    nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+  endif
+endfunction
+
+autocmd FileType * call LC_maps()
+"nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+"nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+"nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
