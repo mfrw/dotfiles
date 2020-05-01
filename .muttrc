@@ -33,7 +33,7 @@ bind index,pager , sidebar-next
 bind index,pager M sidebar-open
 
 
-source /usr/share/doc/mutt/samples/vombadite.color
+source /Users/mfrw/.mutt/vombadite.color
 
 #ssl
 #set ssl_use_sslv3=yes
