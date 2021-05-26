@@ -2,13 +2,13 @@ syntax enable
 set noincsearch
 set timeoutlen=300
 scriptencoding utf-8
-set encoding=utf-8
+set encoding=UTF-8
 "set scrolloff=2
 set nocp
 set nohls
 set backspace=2
 set noshowmode
-"syn on se title
+syn on se title
 set tabstop=8
 set softtabstop=8
 set shiftwidth=8
@@ -17,29 +17,44 @@ set background=dark
 set nu
 set cindent
 set tags=./tags;
-set t_Co=256
 set nolist
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+set maxmempattern=2000000
 
-" nnoremap <F5> :GundoToggle<CR>
+" Avoid Bad habits
+nnoremap <Left> :echoe "Bad Habit: Use h"<CR>
+nnoremap <Right> :echoe "Bad Habit: Use l"<CR>
+nnoremap <Up> :echoe "Bad Habit: Use k"<CR>
+nnoremap <Down> :echoe "Bad Habit: Use j"<CR>
 
 call plug#begin('~/.vim/bundle')
 
-"filetype off
-"set rtp+=~/.vim/bundle/vundle/
-"call vundle#rc()
-
-" This is the Vundle package, which can be found on GitHub.
-" For GitHub repos, you specify plugins using the
-" 'user/repository' format
-"Plugin 'gmarik/vundle'
-
 "Plugin 'Raimondi/delimitMate'
+"Plugin 'avelino/vim-bootstrap-updater'
+"Plugin 'ludwig/split-manpage.vim'
+"Plugin 'vim-syntastic/syntastic'
+"Plug 'scrooloose/syntastic'
+"Plugin 'sheerun/vim-polyglot'
+"Plug 'vim-scripts/taglist.vim'
+"Plugin 'vim-scripts/c.vim'
+"Plugin 'xolox/vim-easytags'
+"Plugin 'kien/ctrlp.vim'
+"Plug 'godlygeek/tabular'
+"Plug 'Rip-Rip/clang_complete'
+"Plug 'nathanaelkane/vim-indent-guides'
+" Plug 'ryanoasis/vim-devicons'
+"Plug 'racer-rust/vim-racer'
+"Plug 'Shougo/echodoc.vim'
+"Plug 'autozimu/LanguageClient-neovim'
+"Plug 'mattn/emmet-vim'
+"Plug 'dahu/LearnVim'
+"Plug 'vimwiki/vimwiki'
+"Plug 'xolox/vim-misc'
+"Plug 'xolox/vim-session'
+
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
-"Plugin 'avelino/vim-bootstrap-updater'
 Plug 'bronson/vim-trailing-whitespace'
-Plug 'dahu/LearnVim'
 Plug 'ervandew/supertab'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'honza/vim-snippets'
@@ -47,60 +62,77 @@ Plug 'jistr/vim-nerdtree-tabs'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar'
-"Plugin 'ludwig/split-manpage.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
-"Plugin 'vim-syntastic/syntastic'
-"Plug 'scrooloose/syntastic'
-"Plugin 'sheerun/vim-polyglot'
 Plug 'sirver/ultisnips'
-Plug 'sjl/gundo.vim'
-Plug 'vim-scripts/taglist.vim'
-Plug 'tomasr/molokai'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-"Plugin 'vim-scripts/c.vim'
-Plug 'vim-scripts/grep.vim'
-"Plugin 'vimwiki/vimwiki'
-"Plugin 'xolox/vim-easytags'
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-session'
-"Plugin 'kien/ctrlp.vim'
+"Plug 'vim-scripts/grep.vim'
 Plug 'rust-lang/rust.vim'
-Plug 'pangloss/vim-javascript'
-
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'corylanou/vim-present', {'for' : 'present'}
-Plug 'ekalinin/Dockerfile.vim', {'for' : 'Dockerfile'}
-Plug 'elzr/vim-json', {'for' : 'json'}
-Plug 'fatih/vim-nginx' , {'for' : 'nginx'}
-Plug 'godlygeek/tabular'
-Plug 'hashivim/vim-hashicorp-tools'
-Plug 'tmux-plugins/vim-tmux', {'for': 'tmux'}
-
-"Plug 'rhysd/vim-clang-format'
-"Plugin 'Rip-Rip/clang_complete'
-Plug 'lervag/vimtex'
-"Plug 'nathanaelkane/vim-indent-guides'
-Plug 'rking/ag.vim'
+"Plug 'corylanou/vim-present', {'for' : 'present'}
+"Plug 'lervag/vimtex'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'jceb/vim-orgmode'
-Plug 'vim-erlang/vim-erlang-runtime'
-Plug 'vim-erlang/vim-erlang-omnicomplete'
-Plug 'vim-erlang/vim-erlang-compiler'
-Plug 'vim-erlang/vim-erlang-tags'
-Plug 'vim-erlang/vim-erlang-skeletons'
-Plug 'elixir-editors/vim-elixir'
+"Plug 'jceb/vim-orgmode'
+Plug 'wellle/targets.vim'
+Plug 'tpope/vim-unimpaired'
+Plug 'easymotion/vim-easymotion'
+Plug 'dag/vim-fish'
+Plug 'lotabout/skim'
+Plug 'lotabout/skim.vim'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'dense-analysis/ale'
 
-Plug 'racer-rust/vim-racer'
+"Plug 'autozimu/LanguageClient-neovim', {
+    "\ 'branch': 'next',
+    "\ 'do': 'bash install.sh',
+    "\ }
+""if has('nvim-disable')
+""	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+""	Plug 'deoplete-plugins/deoplete-go'
+""	Plug 'deoplete-plugins/deoplete-clang'
+""	let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+""	let g:deoplete#enable_at_startup = 0
+""endif
+""Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+"" vim-maktaba
+"Plug 'google/vim-maktaba'
+"Plug 'google/vim-glaive'
+"Plug 'google/vim-codefmt'
+"Plug 'google/vim-selector'
+"Plug 'google/vim-coverage'
+"Plug 'google/vim-syncopate'
+"Plug 'google/vim-codereview'
+"Plug 'dense-analysis/ale'
+"Plug 'chazy/cscope_maps'
+"Plug 'dracula/vim', { 'as': 'dracula' }
+"Plug 'liuchengxu/space-vim-dark'
 
 " Plugin list ends here
 call plug#end()
+
+autocmd BufReadPost *.rs setlocal filetype=rust
+
+" Required for operations modifying multiple buffers like rename.
+set hidden
+
+"let g:LanguageClient_serverCommands = {
+    "\ 'rust': ['rustup', 'run', 'beta', 'rls'],
+      ""\ 'c' : ['clangd', '--resource-dir=','/Users/mfrw/clang9/'],
+      ""\ 'cpp' : ['clangd', '--resource-dir=','/Users/mfrw/clang9/'],
+      "\ 'python' : ['pyls'],
+      ""\ 'go' : ['gopls'],
+    "\ }
+
+"" Automatically start language servers.
+"let g:LanguageClient_autoStart = 1
+
+" Maps K to hover, gd to goto definition, F2 to rename
+"nnoremap <silent> K :call LanguageClient_textDocument_hover()
 
 
 
@@ -124,46 +156,36 @@ map <leader>g :Gstatus<CR>
 
 
 " Dont autosave
-:let g:session_autosave = 'no'
+":let g:session_autosave = 'no'
 
 
 
 " Rust Related Stuff
 let g:rustfmt_autosave = 1
+let g:rustfmt_fail_silently = 0
 
 
 " Syntastic Recommended Settings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_go_checkers = ['govet', 'errcheck', 'go']
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"let g:syntastic_go_checkers = ['govet', 'errcheck', 'go']
 
 " clang-format
 " autocmd FileType c,cpp,java ClangFormatAutoEnable
-" let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+"let g:clang_format#auto_format=1
+"let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+"let g:clang_library_path='/Users/mfrw/clang9/lib'
+"let g:clang_complete_auto=0
 
 
 " Tagbar
 
-" Rust
-let g:tagbar_type_rust = {
-			\ 'ctagstype' : 'rust',
-			\ 'kinds' : [
-			\'T:types,type definitions',
-			\'f:functions,function definitions',
-			\'g:enum,enumeration names',
-			\'s:structure names',
-			\'m:modules,module names',
-			\'c:consts,static constants',
-			\'t:traits',
-			\'i:impls,trait implementations',
-			\]
-			\}
 " Makefile
 let g:tagbar_type_make = {
 			\ 'kinds':[
@@ -178,6 +200,33 @@ let g:tagbar_type_snippets = {
 			\ 's:snippets',
 			\ ]
 			\ }
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
 
 " NERDTree
 
@@ -194,10 +243,15 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " This is from Modern VIM
 " FZF Ctrl+P
-nnoremap <C-p> :<C-u>FZF<CR>
+"nnoremap <C-p> :<C-u>FZF<CR>
+"if has('nvim')
+	"tnoremap <Esc> <C-\><C-n>
+	"tnoremap <C-v><Esc> <Esc>
+"endif
+nnoremap <C-p> :<C-u>SK<CR>
 if has('nvim')
-	tnoremap <Esc> <C-\><C-n>
-	tnoremap <C-v><Esc> <Esc>
+       tnoremap <Esc> <C-\><C-n>
+       tnoremap <C-v><Esc> <Esc>
 endif
 
 "" From faith/dotfiles
@@ -217,7 +271,7 @@ let g:go_auto_type_info = 0
 let g:go_auto_sameids = 0
 "let g:go_info_mode = "gocode"
 
-let g:go_def_mode = "guru"
+"let g:go_def_mode = "guru"
 let g:go_echo_command_info = 1
 let g:go_autodetect_gopath = 1
 let g:go_metalinter_autosave_enabled = ['vet', 'golint']
@@ -236,15 +290,51 @@ let g:go_modifytags_transform = 'camelcase'
 let g:go_fold_enable = []
 
 "" Permanent Undo
-set undodir=~/.vim/vimdid
-set undofile
+"set undodir=~/.vim/vimdid
+"set undofile
+
+
 "" Rust
-let g:racer_experimental_completer = 1
-set hidden
-autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
-autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
-autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
-au FileType rust nmap gd <Plug>(rust-def)
-au FileType rust nmap gs <Plug>(rust-def-split)
-au FileType rust nmap gx <Plug>(rust-def-vertical)
-au FileType rust nmap <leader>gd <Plug>(rust-doc)
+"let g:racer_experimental_completer = 1
+"set hidden
+"autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
+"autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
+"autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
+"au FileType rust nmap gd <Plug>(rust-def)
+"au FileType rust nmap gs <Plug>(rust-def-split)
+"au FileType rust nmap gx <Plug>(rust-def-vertical)
+"au FileType rust nmap <leader>gd <Plug>(rust-doc)
+
+" go extras
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+"let g:go_highlight_fields = 1
+"let g:go_highlight_functions = 1
+"let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+"let g:go_auto_sameids = 1
+"let g:go_auto_type_info = 1
+"highlight ColorColumn ctermbg=8
+"set colorcolumn=80
+
+
+
+" Rust
+"let $RUST_BACKTRACE = 1
+"let g:LanguageClient_loggingLevel = 'INFO'
+"let g:LanguageClient_loggingFile =  expand('~/.local/share/nvim/LanguageClient.log')
+"let g:LanguageClient_serverStderr = expand('~/.local/share/nvim/LanguageServer.log')
+"function LC_maps()
+  "if has_key(g:LanguageClient_serverCommands, &filetype)
+    "nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<cr>
+    "nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+    "nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+  "endif
+"endfunction
+
+"autocmd FileType * call LC_maps()
+"nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+"nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+"nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>

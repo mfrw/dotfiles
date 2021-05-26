@@ -1,0 +1,40 @@
+[user]
+	email = mwani@microsoft.com
+	name  = Muhammad Falak Wani
+[core]
+	pager = delta
+[delta]
+	side-by-side = true
+	navigate = true
+[alias]
+	br = branch
+	ch = status -uno
+	ci = commit -s
+	cl = clone
+	co = checkout
+	d  = diff
+	dc = diff --cached
+	dump = cat-file -p
+	fo = fetch origin
+	fa = fetch --all
+	lga = log --oneline --graph --all --decorate
+	lo = log --oneline
+	pfl = push --force-with-lease
+	pd = push --delete
+	pur = pull --rebase
+	recent = branch -a --sort=-committerdate
+	revert = revert -s
+	st = status
+	type = cat-file -t
+	unstage = reset HEAD --
+	rup = remote update --prune
+[pull]
+	rebase = true
+[credential "https://github.com"]
+	helper = !/home/mfrw/go/src/github.com/cli/cli/bin/gh auth git-credential
+[rerere]
+	enabled = true
+[fetch]
+	prune = true
+[diff]
+	colorMoved = zebra
