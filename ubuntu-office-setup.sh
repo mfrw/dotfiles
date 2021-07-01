@@ -13,7 +13,7 @@ sudo apt-add-repository -y ppa:neovim-ppa/unstable
 
 # install build-essential git gcc
 sudo apt update
-sudo apt install -y build-essential gcc git neovim fish tmux python3-pip libssl-dev exuberant-ctags
+sudo apt install -y build-essential gcc git neovim fish tmux python3-pip libssl-dev exuberant-ctags pkg-config
 
 # install neovim python deps
 pip3 install neovim --user
