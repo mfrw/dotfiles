@@ -85,6 +85,7 @@ Plug 'lotabout/skim'
 Plug 'lotabout/skim.vim'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'dense-analysis/ale'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 "Plug 'autozimu/LanguageClient-neovim', {
     "\ 'branch': 'next',
