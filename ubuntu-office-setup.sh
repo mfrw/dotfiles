@@ -13,7 +13,7 @@ sudo apt-add-repository -y ppa:neovim-ppa/unstable
 
 # install build-essential git gcc
 sudo apt update
-sudo apt install -y build-essential gcc git neovim fish tmux python3-pip
+sudo apt install -y build-essential gcc git neovim fish tmux python3-pip libssl-dev exuberant-ctags
 
 # install neovim python deps
 pip3 install neovim --user
@@ -23,16 +23,9 @@ curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly --profile 
 
 source "$HOME/.cargo/env"
 
-# install rust utils
-
-cargo install bat bingrep cargo-edit cargo-update choose du-dust exa fd-find git-delta gitui gpg-tui hyperfine jql lsd ripgrep skim tealdeer
-
-
 # install vim-plug for nvim
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
 	       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
-
 
 # clone go
 pushd $HOME
@@ -47,3 +40,8 @@ popd
 
 popd
 # end -- go
+
+# install rust utils
+cargo install bat cargo-edit cargo-update choose du-dust fd-find git-delta ripgrep skim tealdeer
+
+
