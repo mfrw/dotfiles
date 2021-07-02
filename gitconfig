@@ -1,6 +1,6 @@
 [user]
-	email = mwani@microsoft.com
-	name  = Muhammad Falak Wani
+	email = falakreyaz@gmail.com
+	name  = Muhammad Falak R Wani
 [core]
 	pager = delta
 [delta]
@@ -33,8 +33,6 @@
 [pull]
 	rebase = true
 	ff = only
-[credential "https://github.com"]
-	helper = !/home/mfrw/go/src/github.com/cli/cli/bin/gh auth git-credential
 [rerere]
 	enabled = true
 [fetch]
