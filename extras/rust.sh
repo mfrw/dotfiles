@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ "$EUID" -eq 0 ]
+	then echo "Please dont run as root"
+	exit
+fi
+
 # install nightly rust
 curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly --profile default
 

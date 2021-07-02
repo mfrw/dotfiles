@@ -1,6 +1,10 @@
 #!/bin/fish
 
 
+if fish_is_root_user
+	echo "Please do not run as root user"
+	exit
+end
 
 # install fisher
 curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
