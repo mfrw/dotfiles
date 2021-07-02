@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ "$EUID" -eq 0 ]
+	then echo "Please dont run as root"
+	exit
+fi
+
 # clone go
 pushd $HOME
 
