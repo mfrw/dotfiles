@@ -1,0 +1,26 @@
+From e0b7a32da073598087ed56a37d81ebc5a03431eb Mon Sep 17 00:00:00 2001
+From: Muhammad Falak Wani <mwani@microsoft.com>
+Date: Thu, 22 Apr 2021 10:49:17 +0530
+Subject: [PATCH] autoload: fugitive: modify 'cc' to commit and sign-off
+
+Signed-off-by: Muhammad Falak Wani <mwani@microsoft.com>
+---
+ autoload/fugitive.vim | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/autoload/fugitive.vim b/autoload/fugitive.vim
+index cb8a514..cfea511 100644
+--- a/autoload/fugitive.vim
++++ b/autoload/fugitive.vim
+@@ -6523,7 +6523,7 @@ function! fugitive#MapJumps(...) abort
+     call s:Map('n', 'cv<Space>', ':tab Git commit -v<Space>')
+     call s:Map('n', 'cv<CR>', ':tab Git commit -v<CR>')
+     call s:Map('n', 'ca', ':<C-U>Git commit --amend<CR>', '<silent>')
+-    call s:Map('n', 'cc', ':<C-U>Git commit<CR>', '<silent>')
++    call s:Map('n', 'cc', ':<C-U>Git commit -s<CR>', '<silent>')
+     call s:Map('n', 'ce', ':<C-U>Git commit --amend --no-edit<CR>', '<silent>')
+     call s:Map('n', 'cw', ':<C-U>Git commit --amend --only<CR>', '<silent>')
+     call s:Map('n', 'cva', ':<C-U>tab Git commit -v --amend<CR>', '<silent>')
+-- 
+2.17.1
+
