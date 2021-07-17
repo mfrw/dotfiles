@@ -1,0 +1,60 @@
+# Create a resource group
+az group create --name mfrw-rg --location centralindia
+
+# Nuke the resource group
+az group delete --name mfrw-rg --yes
+
+# Get details about a resource group
+az group show -g mfrw-rg
+
+# Get all locations
+az account list-locations | rg -i india
+
+# Configure default location
+az configure --defaults location=centralindia
+
+# Get all CBL-Mariner Images
+az vm image list --all --publisher MicrosoftCBLMariner
+
+# Spawn an azure VM
+ az vm create --name marinator --resource-group mfrw-rg --location centralindia --image MicrosoftCBLMariner:cbl-mariner:cbl-mariner-2:latest --os-disk-size-gb 32 --admin-username mfrw
+
+# Enable boot diagnositcs
+az vm boot-diagnostics get-boot-log -n marinator -g mfrw-rg
+
+# Get boot diagnostics
+az vm boot-diagnostics get-boot-log -n marinator -g mfrw-rg
+
+# Get VM Ips
+az vm list-ip-addresses -g mfrw-rg
+
+# Create a Mariner AKS cluster (3 nodes)
+az aks create --name mfrw-cluster --resource-group mfrw-rg --os-sku CBLMariner --enable-addons monitoring
+
+# Populate .kubeconfig with cluster creds for kubectl
+az aks get-credentials --resource-group mfrw-rg --name mfrw-cluster
+
+# List all nodepools
+az aks nodepool list --cluster-name mfrw-cluster -g mfrw-rg
+
+# Scale a specific nodepool
+az aks nodepool scale --cluster-name mfrw-cluster -n nodepool1 -g mfrw-rg -c 5
+
+# Get the upgrade versions available
+az aks get-upgrades -n mfrw-cluster -g mfrw-rg
+
+# Upgrade k8s version
+az aks upgrade -n mfrw-cluster -g mfrw-rg -k 1.22.6
+
+# Get live view of what is happening
+k get events -w
+
+# YOLO SSH into a node! (I would much prefer my own rescue image .. but what the hell! TODO: Create a rescue image with stern and all the yolo tools)
+k get no -o wide
+k debug node/victim-node -it --image=mcr.microsoft.com/dotnet/runtime-deps:6.0
+chroot /host
+journalctl -u kubelet -o cat
+
+# Port Forward & ssh
+k port-forward name-of-rescue-pod 2022:22 (hPort:rPort)
+ssh azureuser@localhost -p 2022
