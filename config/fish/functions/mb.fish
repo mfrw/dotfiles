@@ -5,6 +5,7 @@ function mb -d "CBL-Mariner Rebuild packages given as args"
 	PACKAGE_REBUILD_LIST="$argv" \
 	REBUILD_TOOLS=y \
 	RUN_CHECK=n \
+	USE_PACKAGE_BUILD_CACHE=y \
 	SRPM_FILE_SIGNATURE_HANDLING=update \
 	SOURCE_URL="https://cblmarinerstorage.blob.core.windows.net/sources/core" \
 	LOG_LEVEL=info
