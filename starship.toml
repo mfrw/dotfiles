@@ -37,3 +37,6 @@ fish_style_pwd_dir_length = 2
 [git_branch]
 format = 'on [$symbol$branch]($style)(:[$remote_name/$remote_branch](green)) '
 always_show_remote = true
+
+[shell]
+disabled = false
