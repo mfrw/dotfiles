@@ -1,0 +1,39 @@
+format = """
+$username\
+$hostname\
+$shlvl\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$hg_branch\
+$docker_context\
+$package\
+$erlang\
+$golang\
+$python\
+$rust\
+$terraform\
+$zig\
+$nix_shell\
+$memory_usage\
+$env_var\
+$custom\
+$cmd_duration\
+$line_break\
+$jobs\
+$battery\
+$time\
+$status\
+$shell\
+$character"""
+
+[directory]
+truncation_length = 3
+fish_style_pwd_dir_length = 2
+
+[git_branch]
+format = 'on [$symbol$branch]($style)(:[$remote_name/$remote_branch](green)) '
+always_show_remote = true
