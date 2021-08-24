@@ -23,3 +23,4 @@ setenv LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline<Paste>
 source (starship init fish --print-full-init | psub)
 # configure zoxide
 zoxide init fish | source
+alias vi=nvim
