@@ -9,7 +9,7 @@ function cmhydrate -d "CBL-Mariner Hydrate toolchain & RPMS"
 	git checkout $argv[1]
 	sudo make -j(nproc) clean
 
-	cp $HOME/cm_arts/$argv[1] resources/manifests/package
+	#cp $HOME/cm_arts/$argv[1] resources/manifests/package
 
 	echo "Hydrate toolchain"
 	sudo make -j(nproc) hydrate-toolchain \

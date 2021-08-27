@@ -24,3 +24,6 @@ source (starship init fish --print-full-init | psub)
 # configure zoxide
 zoxide init fish | source
 alias vi=nvim
+#
+# configure gh completions
+source (gh completion -s fish)
