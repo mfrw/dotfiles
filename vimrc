@@ -152,7 +152,7 @@ au FileType * map <leader>t :TagbarToggle <CR>
 au FileType * map <leader>n <plug>NERDTreeTabsToggle<CR>
 map <leader>f :NERDTreeFind<CR>
 map <leader>n :NERDTreeTabsToggle<CR>
-map <leader>g :Gstatus<CR>
+map <leader>g :Git<CR>
 "au FileType * map <leader>n :NERDTreeToggle <CR>
 
 
