@@ -22,10 +22,10 @@ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 set maxmempattern=2000000
 
 " Avoid Bad habits
-nnoremap <Left> :echoe "Bad Habit: Use h"<CR>
-nnoremap <Right> :echoe "Bad Habit: Use l"<CR>
-nnoremap <Up> :echoe "Bad Habit: Use k"<CR>
-nnoremap <Down> :echoe "Bad Habit: Use j"<CR>
+" nnoremap <Left> :echoe "Bad Habit: Use h"<CR>
+" nnoremap <Right> :echoe "Bad Habit: Use l"<CR>
+" nnoremap <Up> :echoe "Bad Habit: Use k"<CR>
+" nnoremap <Down> :echoe "Bad Habit: Use j"<CR>
 
 call plug#begin('~/.vim/bundle')
 
