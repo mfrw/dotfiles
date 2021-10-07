@@ -1,7 +1,10 @@
 set -Ux LSCOLORS "Gxfxcxdxbxegedabagacad"
 
-export PATH="$HOME/.cargo/bin:$HOME/go/bin:$PATH"
-setenv GOPATH $HOME/go
+setenv GOPATH $HOME/g
+setenv GOROOT $HOME/go
+setenv GOROOT_BOOTSTRAP $HOME/go1.4
+
+export PATH="$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin:$HOME/bin:$PATH"
 
 setenv EDITOR nvim
 
@@ -26,4 +29,4 @@ zoxide init fish | source
 alias vi=nvim
 #
 # configure gh completions
-source (gh completion -s fish)
+source (gh completion -s fish | psub)
