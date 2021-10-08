@@ -86,32 +86,8 @@ Plug 'lotabout/skim.vim'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'dense-analysis/ale'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'neovim/nvim-lspconfig'
 
-"Plug 'autozimu/LanguageClient-neovim', {
-    "\ 'branch': 'next',
-    "\ 'do': 'bash install.sh',
-    "\ }
-""if has('nvim-disable')
-""	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-""	Plug 'deoplete-plugins/deoplete-go'
-""	Plug 'deoplete-plugins/deoplete-clang'
-""	let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
-""	let g:deoplete#enable_at_startup = 0
-""endif
-""Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-"" vim-maktaba
-"Plug 'google/vim-maktaba'
-"Plug 'google/vim-glaive'
-"Plug 'google/vim-codefmt'
-"Plug 'google/vim-selector'
-"Plug 'google/vim-coverage'
-"Plug 'google/vim-syncopate'
-"Plug 'google/vim-codereview'
-"Plug 'dense-analysis/ale'
-"Plug 'chazy/cscope_maps'
-"Plug 'dracula/vim', { 'as': 'dracula' }
-"Plug 'liuchengxu/space-vim-dark'
 
 " Plugin list ends here
 call plug#end()
@@ -121,30 +97,11 @@ autocmd BufReadPost *.rs setlocal filetype=rust
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
-"let g:LanguageClient_serverCommands = {
-    "\ 'rust': ['rustup', 'run', 'beta', 'rls'],
-      ""\ 'c' : ['clangd', '--resource-dir=','/Users/mfrw/clang9/'],
-      ""\ 'cpp' : ['clangd', '--resource-dir=','/Users/mfrw/clang9/'],
-      "\ 'python' : ['pyls'],
-      ""\ 'go' : ['gopls'],
-    "\ }
-
-"" Automatically start language servers.
-"let g:LanguageClient_autoStart = 1
-
-" Maps K to hover, gd to goto definition, F2 to rename
-"nnoremap <silent> K :call LanguageClient_textDocument_hover()
 
 
 
 filetype plugin on
 filetype plugin indent on
-
-"" GO Related Stuff
-"let g:go_fmt_command = 'goimports'
-"let g:go_info_mode = 'guru'
-
-
 
 " Some random mappings
 au FileType go nmap <leader>r <Plug>(go-run)
@@ -153,7 +110,6 @@ au FileType * map <leader>n <plug>NERDTreeTabsToggle<CR>
 map <leader>f :NERDTreeFind<CR>
 map <leader>n :NERDTreeTabsToggle<CR>
 map <leader>g :Git<CR>
-"au FileType * map <leader>n :NERDTreeToggle <CR>
 
 
 " Dont autosave
@@ -164,25 +120,6 @@ map <leader>g :Git<CR>
 " Rust Related Stuff
 let g:rustfmt_autosave = 1
 let g:rustfmt_fail_silently = 0
-
-
-" Syntastic Recommended Settings
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-"let g:syntastic_go_checkers = ['govet', 'errcheck', 'go']
-
-" clang-format
-" autocmd FileType c,cpp,java ClangFormatAutoEnable
-"let g:clang_format#auto_format=1
-"let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
-"let g:clang_library_path='/Users/mfrw/clang9/lib'
-"let g:clang_complete_auto=0
 
 
 " Tagbar
@@ -244,12 +181,7 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " This is from Modern VIM
 " FZF Ctrl+P
-"nnoremap <C-p> :<C-u>FZF<CR>
-"if has('nvim')
-	"tnoremap <Esc> <C-\><C-n>
-	"tnoremap <C-v><Esc> <Esc>
-"endif
-nnoremap <C-p> :<C-u>SK<CR>
+nnoremap <C-p> :<C-u>Files<CR>
 if has('nvim')
        tnoremap <Esc> <C-\><C-n>
        tnoremap <C-v><Esc> <Esc>
@@ -295,47 +227,62 @@ let g:go_fold_enable = []
 "set undofile
 
 
-"" Rust
-"let g:racer_experimental_completer = 1
-"set hidden
-"autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
-"autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
-"autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
-"au FileType rust nmap gd <Plug>(rust-def)
-"au FileType rust nmap gs <Plug>(rust-def-split)
-"au FileType rust nmap gx <Plug>(rust-def-vertical)
-"au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 " go extras
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
-"let g:go_highlight_fields = 1
-"let g:go_highlight_functions = 1
-"let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
-"let g:go_auto_sameids = 1
-"let g:go_auto_type_info = 1
-"highlight ColorColumn ctermbg=8
-"set colorcolumn=80
 
 
 
-" Rust
-"let $RUST_BACKTRACE = 1
-"let g:LanguageClient_loggingLevel = 'INFO'
-"let g:LanguageClient_loggingFile =  expand('~/.local/share/nvim/LanguageClient.log')
-"let g:LanguageClient_serverStderr = expand('~/.local/share/nvim/LanguageServer.log')
-"function LC_maps()
-  "if has_key(g:LanguageClient_serverCommands, &filetype)
-    "nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<cr>
-    "nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-    "nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-  "endif
-"endfunction
 
-"autocmd FileType * call LC_maps()
-"nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-"nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-"nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+lua << EOF
+local nvim_lsp = require('lspconfig')
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  -- Enable completion triggered by <c-x><c-o>
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+end
+
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+local servers = { 'rust_analyzer' }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    }
+  }
+end
+EOF
