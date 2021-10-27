@@ -8,7 +8,7 @@
 	side-by-side = true
 	navigate = true
 [alias]
-	br = branch
+	br = branch -vv
 	ch = status -uno
 	ci = commit -s
 	cl = clone
