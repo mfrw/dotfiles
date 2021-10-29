@@ -2,11 +2,30 @@
 	email = falakreyaz@gmail.com
 	name  = Muhammad Falak R Wani
 	signingkey = 52EAF8584C0E9B51405CA80DD323A5E0174C86DD
+
 [core]
-	pager = delta
+	pager = less
+
+[pager]
+        diff = delta
+        log = delta
+        reflog = delta
+        show = delta
+
 [delta]
-	side-by-side = true
-	navigate = true
+        features = side-by-side linux-numbers
+        whitespace-error-style = 22 reverse
+#       side-by-side = true
+        navigate = true
+
+[delta "decorations"]
+        commit-decoration-style = bold yellow box ul
+        file-style = bold yellow ul
+        file-decoration-style = none
+
+[interactive]
+        diffFilter = delta --color-only
+
 [alias]
 	br = branch -vv
 	ch = status -uno
@@ -31,6 +50,7 @@
 	type = cat-file -t
 	unstage = reset HEAD --
 	rup = remote update --prune
+
 [pull]
 	rebase = true
 	ff = only
