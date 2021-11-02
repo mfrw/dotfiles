@@ -54,6 +54,8 @@
 [pull]
 	rebase = true
 	ff = only
+[branch]
+	autosetuprebase=always
 [rerere]
 	enabled = true
 [fetch]
