@@ -1,9 +1,9 @@
-syntax enable
 set noincsearch
+set ic
 set timeoutlen=300
 scriptencoding utf-8
 set encoding=UTF-8
-"set scrolloff=2
+set t_Co=256
 set nocp
 set nohls
 set backspace=2
@@ -20,37 +20,13 @@ set tags=./tags;
 set nolist
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 set maxmempattern=2000000
+set hidden
 
-" Avoid Bad habits
-" nnoremap <Left> :echoe "Bad Habit: Use h"<CR>
-" nnoremap <Right> :echoe "Bad Habit: Use l"<CR>
-" nnoremap <Up> :echoe "Bad Habit: Use k"<CR>
-" nnoremap <Down> :echoe "Bad Habit: Use j"<CR>
+" Hack
+highlight default link NormalFloat Normal "fix the floating window color issue
+
 
 call plug#begin('~/.vim/bundle')
-
-"Plugin 'Raimondi/delimitMate'
-"Plugin 'avelino/vim-bootstrap-updater'
-"Plugin 'ludwig/split-manpage.vim'
-"Plugin 'vim-syntastic/syntastic'
-"Plug 'scrooloose/syntastic'
-"Plugin 'sheerun/vim-polyglot'
-"Plug 'vim-scripts/taglist.vim'
-"Plugin 'vim-scripts/c.vim'
-"Plugin 'xolox/vim-easytags'
-"Plugin 'kien/ctrlp.vim'
-"Plug 'godlygeek/tabular'
-"Plug 'Rip-Rip/clang_complete'
-"Plug 'nathanaelkane/vim-indent-guides'
-" Plug 'ryanoasis/vim-devicons'
-"Plug 'racer-rust/vim-racer'
-"Plug 'Shougo/echodoc.vim'
-"Plug 'autozimu/LanguageClient-neovim'
-"Plug 'mattn/emmet-vim'
-"Plug 'dahu/LearnVim'
-"Plug 'vimwiki/vimwiki'
-"Plug 'xolox/vim-misc'
-"Plug 'xolox/vim-session'
 
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
@@ -67,16 +43,10 @@ Plug 'scrooloose/nerdtree'
 Plug 'sirver/ultisnips'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-"Plug 'vim-scripts/grep.vim'
 Plug 'rust-lang/rust.vim'
-"Plug 'corylanou/vim-present', {'for' : 'present'}
-"Plug 'lervag/vimtex'
 Plug 'terryma/vim-multiple-cursors'
-"Plug 'jceb/vim-orgmode'
 Plug 'wellle/targets.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'easymotion/vim-easymotion'
@@ -84,21 +54,16 @@ Plug 'dag/vim-fish'
 Plug 'lotabout/skim'
 Plug 'lotabout/skim.vim'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
-Plug 'dense-analysis/ale'
+
+" lets go lua
+Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-telescope/telescope.nvim'
 
 
 " Plugin list ends here
 call plug#end()
-
-autocmd BufReadPost *.rs setlocal filetype=rust
-
-" Required for operations modifying multiple buffers like rename.
-set hidden
-
-
-
 
 filetype plugin on
 filetype plugin indent on
@@ -110,12 +75,6 @@ au FileType * map <leader>n <plug>NERDTreeTabsToggle<CR>
 map <leader>f :NERDTreeFind<CR>
 map <leader>n :NERDTreeTabsToggle<CR>
 map <leader>g :Git<CR>
-
-
-" Dont autosave
-":let g:session_autosave = 'no'
-
-
 
 " Rust Related Stuff
 let g:rustfmt_autosave = 1
@@ -181,62 +140,35 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " This is from Modern VIM
 " FZF Ctrl+P
-nnoremap <C-p> :<C-u>Files<CR>
+nnoremap <C-p> :<C-u>Telescope find_files<CR>
 if has('nvim')
        tnoremap <Esc> <C-\><C-n>
        tnoremap <C-v><Esc> <Esc>
 endif
 
-"" From faith/dotfiles
 " ==================== vim-go ====================
-"let g:go_fmt_fail_silently = 1
+" go extras
 let g:go_fmt_command = "goimports"
 
 let g:go_debug_windows = {
       \ 'vars':  'leftabove 35vnew',
       \ 'stack': 'botright 10new',
 \ }
-
-
-let g:go_test_prepend_name = 1
-let g:go_list_type = "quickfix"
-let g:go_auto_type_info = 0
-let g:go_auto_sameids = 0
-"let g:go_info_mode = "gocode"
-
-"let g:go_def_mode = "guru"
-let g:go_echo_command_info = 1
 let g:go_autodetect_gopath = 1
-let g:go_metalinter_autosave_enabled = ['vet', 'golint']
-
-let g:go_highlight_space_tab_error = 0
-let g:go_highlight_array_whitespace_error = 0
-let g:go_highlight_trailing_whitespace_error = 0
-let g:go_highlight_extra_types = 0
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_types = 0
-let g:go_highlight_operators = 1
-let g:go_highlight_format_strings = 0
-let g:go_highlight_function_calls = 0
-
-let g:go_modifytags_transform = 'camelcase'
+let g:go_echo_command_info = 1
 let g:go_fold_enable = []
-
-"" Permanent Undo
-"set undodir=~/.vim/vimdid
-"set undofile
-
-
-
-" go extras
 let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
+let g:go_list_type = "quickfix"
+let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+let g:go_modifytags_transform = 'camelcase'
+let g:go_test_prepend_name = 1
 
 
 
+" LUA  starts HERE!
 
 lua << EOF
 local nvim_lsp = require('lspconfig')
@@ -276,7 +208,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'rust_analyzer' }
+local servers = { 'rust_analyzer', 'gopls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -285,4 +217,21 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
+EOF
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ignore_install = { "javascript" }, -- List of parsers to ignore installing
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    -- disable = { "c", "rust" },  -- list of language that will be disabled
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+  indent = { enable = true },
+}
 EOF
