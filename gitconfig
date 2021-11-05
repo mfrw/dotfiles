@@ -37,7 +37,7 @@
 	dc = diff --cached
 	dump = cat-file -p
 	fo = fetch origin
-	fa = fetch --all
+	fa = fetch --all --tags
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 	lga = log --oneline --graph --all --decorate
 	lo = log --oneline
