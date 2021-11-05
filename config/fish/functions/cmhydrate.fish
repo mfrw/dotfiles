@@ -20,9 +20,9 @@ function cmhydrate -d "CBL-Mariner Hydrate toolchain & RPMS"
 	sudo make -j(nproc) hydrate-rpms \
 		PACKAGE_ARCHIVE=$HOME/cm_arts/$argv[1]/rpms.tar.gz
 
-	echo "Hydrate COREUI RPMS"
-	sudo make -j(nproc) hydrate-rpms \
-		PACKAGE_ARCHIVE=$HOME/cm_arts/$argv[1]/coreui_rpms.tar.gz
+	#echo "Hydrate COREUI RPMS"
+	#sudo make -j(nproc) hydrate-rpms \
+		#PACKAGE_ARCHIVE=$HOME/cm_arts/$argv[1]/coreui_rpms.tar.gz
 
 
 	sudo mkdir -p ../build/rpm_cache/cache/{noarch,x86_64}
