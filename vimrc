@@ -60,6 +60,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-github.nvim'
 
 
 " Plugin list ends here
@@ -219,6 +220,7 @@ for _, lsp in ipairs(servers) do
 end
 EOF
 
+" Tree-Sitter Configs
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
@@ -234,4 +236,11 @@ require'nvim-treesitter.configs'.setup {
   },
   indent = { enable = true },
 }
+EOF
+
+
+
+" Telescope plugins
+lua << EOF
+require('telescope').load_extension('gh')
 EOF
