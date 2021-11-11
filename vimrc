@@ -54,6 +54,7 @@ Plug 'dag/vim-fish'
 Plug 'lotabout/skim'
 Plug 'lotabout/skim.vim'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'buoto/gotests-vim'
 
 " lets go lua
 Plug 'nvim-lua/plenary.nvim'
