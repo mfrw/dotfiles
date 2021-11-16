@@ -214,12 +214,30 @@ end
 -- map buffer local keybindings when the language server attaches
 local servers = { 'rust_analyzer', 'gopls' }
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    }
-  }
+	nvim_lsp[lsp].setup {
+		on_attach = on_attach,
+		settings = {
+			["rust-analyzer"] = {
+				callInfo = {
+					full = true
+					},
+				assist = {
+					importGranularity = "module",
+					importPrefix = "by_self",
+					},
+				cargo = {
+					loadOutDirsFromCheck = true,
+					allFeatures = true,
+					},
+				procMacro = {
+				enable = true
+				},
+			},
+		},
+	flags = {
+		debounce_text_changes = 150,
+		},
+	}
 end
 EOF
 
@@ -247,3 +265,4 @@ EOF
 lua << EOF
 require('telescope').load_extension('gh')
 EOF
+
