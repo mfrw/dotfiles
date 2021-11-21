@@ -62,6 +62,7 @@ Plug 'buoto/gotests-vim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-github.nvim'
 
@@ -229,15 +230,12 @@ for _, lsp in ipairs(servers) do
 					loadOutDirsFromCheck = true,
 					allFeatures = true,
 					},
-				procMacro = {
-				enable = true
 				},
 			},
-		},
-	flags = {
-		debounce_text_changes = 150,
-		},
-	}
+		flags = {
+			debounce_text_changes = 150,
+			},
+		}
 end
 EOF
 
@@ -266,3 +264,15 @@ lua << EOF
 require('telescope').load_extension('gh')
 EOF
 
+lua << EOF
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = true,
+        signs = true,
+        update_in_insert = true,
+    }
+)
+
+EOF
+
+autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"}}
