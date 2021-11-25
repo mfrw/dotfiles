@@ -4,7 +4,7 @@ function snag -d "Pick desired files from a chosen branch and checkout in $CWD"
   # avoid doing work if branch isn't set
   if test -n "$branch"
     # use fzf to choose files that differ from current branch
-    set file (git diff --name-only $branch | fzf --prompt="Search for a file to checkout at CWD:> " --multi=1 --height 20% --layout=reverse --border --multi)
+    set file (git diff --name-only $branch | fzf --prompt="Search for a file to checkout at CWD:> " --multi=1 --height 20% --layout=reverse --border)
   end
   # Stop the operation, if there is already a file with the same name in $CWD.
   if test -e (basename $file)
