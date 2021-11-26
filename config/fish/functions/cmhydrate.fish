@@ -16,6 +16,7 @@ function cmhydrate -d "CBL-Mariner Hydrate toolchain & RPMS"
 		if test -e $base/toolkit
 			pushd $base/toolkit
 			git checkout $argv[1]
+			# check the status here; die incase anything goes wrong
 
 			echo "Clean Everything!"
 			sudo make clean
