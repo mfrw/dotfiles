@@ -193,6 +193,9 @@ bar {
         status_command i3status
 }
 
+# bar toggle, hide or show
+bindsym $mod+m bar mode toggle
+
 #exec setxkbmap -layout 'us(intl)'
 #exec xmodmap ~/.Xmodmap
 #exec ~/.screenlayout/layout.sh
