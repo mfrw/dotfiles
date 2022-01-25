@@ -6,7 +6,10 @@ setenv GOROOT_BOOTSTRAP $HOME/go1.4
 
 export PATH="$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin:$HOME/bin:$PATH"
 
-setenv EDITOR nvim
+if type -q nvim
+	setenv EDITOR nvim
+	alias vi=nvim
+end
 
 setenv LC_ALL en_US.UTF-8
 setenv LANG en_US.UTF-8
@@ -23,10 +26,15 @@ setenv LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline<Paste>
 
 
 # configure starship
-source (starship init fish --print-full-init | psub)
+if type -q starship
+	source (starship init fish --print-full-init | psub)
+end
 # configure zoxide
-zoxide init fish | source
-alias vi=nvim
-#
+if type -q zoxide
+	zoxide init fish | source
+end
+
 # configure gh completions
-source (gh completion -s fish | psub)
+if type -q gh
+	source (gh completion -s fish | psub)
+end
