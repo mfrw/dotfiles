@@ -6,6 +6,12 @@ pushd $HOME
 
 git clone git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
 
+if [[ $? -ne 0 ]] ; then
+	echo "~/linux already exists"
+	popd
+	exit 1
+fi
+
 echo "Lets add a buch of remotes"
 
 git remote add bpf-next          git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next.git
