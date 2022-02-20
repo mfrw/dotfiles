@@ -12,6 +12,8 @@ if [[ $? -ne 0 ]] ; then
 	exit 1
 fi
 
+cd linux
+
 echo "Lets add a buch of remotes"
 
 git remote add bpf-next          git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next.git
