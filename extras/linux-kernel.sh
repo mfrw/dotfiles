@@ -33,7 +33,7 @@ git remote add net-next          git://git.kernel.org/pub/scm/linux/kernel/git/n
 git remote add pagecache         git://git.infradead.org/users/willy/pagecache.git
 git remote add rust              git@github.com:Rust-for-Linux/linux.git
 git remote add willy-linux       git://git.infradead.org/users/willy/linux.git
-git remote add xarry             git://git.infradead.org/users/willy/xarray.git
+git remote add xarray             git://git.infradead.org/users/willy/xarray.git
 
 echo "Brach out !!!"
 
