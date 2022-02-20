@@ -21,7 +21,7 @@ git fetch --all --tags
 echo "Lets add a buch of remotes"
 
 git remote add bpf-next          git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next.git
-git remote add cb                git@github.com:microsoft/CBL-Mariner-Linux-Kernel.git
+git remote add cbl               git@github.com:microsoft/CBL-Mariner-Linux-Kernel.git
 git remote add cloud-hv          git@github.com:cloud-hypervisor/linux.git
 git remote add hyperv            git://git.kernel.org/pub/scm/linux/kernel/git/hyperv/linux.git
 git remote add kselftest         git://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git
@@ -33,7 +33,7 @@ git remote add net-next          git://git.kernel.org/pub/scm/linux/kernel/git/n
 git remote add pagecache         git://git.infradead.org/users/willy/pagecache.git
 git remote add rust              git@github.com:Rust-for-Linux/linux.git
 git remote add willy-linux       git://git.infradead.org/users/willy/linux.git
-git remote add xarray             git://git.infradead.org/users/willy/xarray.git
+git remote add xarray            git://git.infradead.org/users/willy/xarray.git
 
 echo "Brach out !!!"
 
