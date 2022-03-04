@@ -1,8 +1,18 @@
 prSections:
-  - title: My Pull Requests
-    filters: is:open author:@me
+  - title: CBL PRs
+    filters: is:open author:@me repo:microsoft/CBL-Mariner
+  - title: CBL (look)
+    filters: is:open involves:@me -author:@me repo:microsoft/CBL-Mariner
+  - title: CBL (mfrw)
+    filters: is:open review-requested:@me -author:CBL-Mariner-Bot repo:microsoft/CBL-Mariner
+  - title: Mariner-Devs (review)
+    filters: is:open -author:@me team-review-requested:microsoft/cbl-mariner-devs repo:microsoft/CBL-Mariner
+  - title: Reviewed & Open
+    filters: is:open reviewed-by:@me repo:microsoft/CBL-Mariner
+  - title: My Open Source PRs
+    filters: is:open author:@me -repo:microsoft/CBL-Mariner
   - title: Needs My Review
-    filters: is:open review-requested:@me
+    filters: is:open review-requested:@me -repo:microsoft/CBL-Mariner
   - title: Subscribed
     filters: is:open -author:@me repo:tldr-pages/tldr
     limit: 50 # optional limit per section
@@ -10,4 +20,4 @@ defaults:
   prsLimit: 20 # global limit
   preview:
     open: true
-    width: 60
+    width: 100
