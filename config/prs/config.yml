@@ -1,16 +1,14 @@
 prSections:
   - title: Involved
     filters: is:open involves:@me sort:updated
-  - title: CBL (review)
+  - title: Review
+    filters: is:open user-review-requested:@me sort:updated
+  - title: CBL-Mariner-Devs
     filters: is:open review-requested:@me -author:CBL-Mariner-Bot repo:microsoft/CBL-Mariner sort:updated
-  - title: OSS
-    filters: is:open author:@me -repo:microsoft/CBL-Mariner sort:updated
   - title: Reviewed
     filters: is:open reviewed-by:@me sort:updated
-  - title: Needs Review
-    filters: is:open review-requested:@me -repo:microsoft/CBL-Mariner sort:updated
   - title: Subscribed
-    filters: is:open -author:@me repo:tldr-pages/tldr sort:updated
+    filters: is:open -author:@me repo:tldr-pages/tldr repo:rust-lang/rust repo:golang/go repo:libbpf/libbpf repo:iovisor/bcc sort:updated
     limit: 50 # optional limit per section
 defaults:
   prsLimit: 20 # global limit
