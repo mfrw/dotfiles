@@ -56,7 +56,7 @@ bindsym $mod+Shift+q kill
 # start dmenu (a program launcher)
 # bindsym $mod+d exec --no-startup-id dmenu_run
 # bindsym $mod+d exec "rofi -modi drun,run,ssh,combi -font 'adobe source code pro 40' -show drun -theme solarized -show-icons"
-bindsym $mod+space exec "rofi -modi drun,run,ssh,combi -font 'adobe source code pro 40' -show drun -theme solarized"
+bindsym $mod+space exec "rofi -modi drun,run,ssh,combi -font 'adobe source code pro 20' -show drun -theme solarized"
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
