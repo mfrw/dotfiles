@@ -31,7 +31,9 @@ git remote add linux-next        git://git.kernel.org/pub/scm/linux/kernel/git/n
 git remote add linux-rng         git://git.zx2c4.com/linux-rng
 git remote add mingo             git://git.kernel.org/pub/scm/linux/kernel/git/mingo/tip.git
 git remote add net-next          git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git
+git remote add netdev            git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git
 git remote add pagecache         git://git.infradead.org/users/willy/pagecache.git
+git remote add rcu               git://git.kernel.org/pub/scm/linux/kernel/git/paulmck/linux-rcu.git
 git remote add rt-devel          git://git.kernel.org/pub/scm/linux/kernel/git/rt/linux-rt-devel.git
 git remote add rt-stable         git://git.kernel.org/pub/scm/linux/kernel/git/rt/linux-stable-rt.git
 git remote add rust              git@github.com:Rust-for-Linux/linux.git
@@ -50,9 +52,11 @@ git branch iomap              willy-linux/folio-iomap                   --track
 git branch l-nxt              linux-next/master                         --track
 git branch mingo-master       mingo/master                              --track
 git branch n-nxt              net-next/master                           --track
+git branch net                netdev/master                             --track
 git branch pgc-nxt            pagecache/for-next                        --track
 git branch r-master           rust/rust                                 --track
 git branch r-nxt              rust/rust-next                            --track
+git branch rcu-dev            rcu/dev                                   --track
 git branch rng                linux-rng/master                          --track
 git branch rt-dev-cs          rt-devel-for-kbuild-bot/current-stable    --track
 git branch wg                 wg-linux/davem/net                        --track
