@@ -38,3 +38,5 @@ end
 if type -q gh
 	source (gh completion -s fish | psub)
 end
+
+set -x MOZ_ENABLE_WAYLAND 1
