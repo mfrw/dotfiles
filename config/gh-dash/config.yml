@@ -10,6 +10,13 @@ prSections:
   - title: Subscribed
     filters: is:open -author:@me repo:tldr-pages/tldr repo:rust-lang/rust repo:golang/go repo:libbpf/libbpf repo:iovisor/bcc sort:updated
     limit: 50 # optional limit per section
+issuesSections:
+  - title: Involves
+    filters: is:open involves:@me sort:updated
+  - title: Created
+    filters: is:open author:@me sort:updated
+  - title: Assigned
+    filters: is:open assignee:@me sort:updated
 defaults:
   prsLimit: 20 # global limit
   preview:
