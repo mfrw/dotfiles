@@ -52,7 +52,7 @@ git branch iomap              willy-linux/folio-iomap                   --track
 git branch l-nxt              linux-next/master                         --track
 git branch mingo-master       mingo/master                              --track
 git branch n-nxt              net-next/master                           --track
-git branch net                netdev/master                             --track
+git branch net-master         netdev/master                             --track
 git branch pgc-nxt            pagecache/for-next                        --track
 git branch r-master           rust/rust                                 --track
 git branch r-nxt              rust/rust-next                            --track
