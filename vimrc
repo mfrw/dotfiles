@@ -151,6 +151,9 @@ if has('nvim')
        tnoremap <C-v><Esc> <Esc>
 endif
 
+" Resumeable Rg -- override Rg
+command! -bang -nargs=* Rg :Telescope live_grep
+
 " ==================== vim-go ====================
 " go extras
 let g:go_fmt_command = "goimports"
