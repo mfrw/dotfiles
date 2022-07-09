@@ -1,0 +1,62 @@
+---
+tags: [ build ]
+---
+
+Building & Fighting Mariner BS (Build System) .. common we all know it is _BS_ ;)
+
+All the commands assume you to be in `toolkit` unless otherwise specified
+
+# Hydrate the with Toolchain archive
+sudo make toolchain chroot-tools CONFIG_FILE= TOOLCHAIN_ARCHIVE=/path/to/toolchain_built_rpms_all.tar.gz
+
+# Copy toolchain rpms to `out` dir
+sudo make copy-toolchain-rpms
+
+# Hydrate with rpms
+sudo make hydrate-rpms PACKAGE_ARCHIVE=/path/to/rpms.tar.gz
+
+# Run the SRPM packer
+sudo make expand-specs REBUILD_TOOLS=y SOURCE_URL=https://cblmarinerstorage.blob.core.windows.net/sources/core
+
+# Build packages
+sudo make -j12 CONFIG_FILE= REBUILD_PACKAGES=y REBUILD_TOOLS=y RUN_CHECK=y
+
+# Make a raw tar.gz
+tar -czvf output.tar.gz -C WSL-Mariner/ .
+
+## All Build Targets
+
+These are the useful build targets:
+| Target                           | Description
+|:---------------------------------|:---
+| build-packages                   | Build requested `*.rpm` files (see [Packages](#packages)).
+| chroot-tools                     | Create the chroot working from the toolchain RPMs.
+| clean                            | Clean all built files.
+| clean-*                          | Most targets have a `clean-<target>` target which selectively cleans the target's output.
+| compress-rpms                    | Compresses all RPMs in `../out/RPMS` into `../out/rpms.tar.gz`. See `hydrate-rpms` target.
+| compress-srpms                   | Compresses all SRPMs in `../out/SRPMS` into `../out/srpms.tar.gz`.
+| copy-toolchain-rpms              | Copy all toolchain RPMS from `../build/rpm_cache/cache` to  `../out/RPMS`.
+| expand-specs                     | Extract working copies of the `*.spec` files from the local `*.src.rpm` files.
+| fetch-image-packages             | Locate and download all packages required for an image build.
+| fetch-external-image-packages    | Download all external packages required for an image build.
+| go-\<tool\>                      | Build a specific tool (ensure `REBUILD_TOOLS=y`).
+| go-fmt-all                       | Auto format all `*.go` files.
+| go-mod-tidy                      | Tidy the go module files.
+| go-test-coverage                 | Run and publish test coverage for all go tools.
+| go-tidy-all                      | Runs `go-fmt-all` and `go-mod-tidy`.
+| go-tools                         | Preps all go tools (ensure `REBUILD_TOOLS=y` to rebuild).
+| hydrate-rpms                     | Hydrates the `../out/RPMS` directory from `rpms.tar.gz`. See `compress-rpms` target.
+| image                            | Generate an image (see [Images](#images)).
+| initrd                           | Create the initrd for the ISO installer.
+| input-srpms                      | Scan the local `*.spec` files, locate sources, and create `*.src.rpm` files.
+| iso                              | Create an installable ISO (see [ISOs](#isos)).
+| macro-tools                      | Create the directory with expanded rpm macros.
+| make-raw-image                   | Create the raw base image.
+| meta-user-data                   | Create a `meta-user-data.iso` file under `IMAGES_DIR` using `meta-data` and `user-data` from `META_USER_DATA_DIR`.
+| package-toolkit                  | Create this toolkit.
+| raw-toolchain                    | Build the initial toolchain bootstrap stage.
+| toolchain                        | Ensure all toolchain RPMs are present.
+| toolchain_stage2                 | Perform the second stage bootstrap.
+| validate-image-config            | Validate the selected image config.
+| workplan                         | Create the package build workplan.
+
