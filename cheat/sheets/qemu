@@ -1,0 +1,31 @@
+# Convert a vhdx to a qcow2
+qemu-img convert -O qcow2 mariner.vhdx mariner-gen2.qcow2
+
+
+# Start a mariner gen1 image
+sudo qemu-system-x86_64 \
+        -nodefaults \
+        -enable-kvm \
+        -hda mariner-gen1.qcow2 \
+        -cdrom cloud-init.iso \
+        -nic user,model=virtio-net-pci,hostfwd=tcp:127.0.0.1:10022-:22 \
+        -m 4G \
+        -smp 8 \
+        -nographic \
+        -serial pty \
+        -serial stdio
+
+# Start a mariner gen2 image
+# install edk2-ovmf & copy OVMF.fd
+sudo qemu-system-x86_64 \
+        -nodefaults \
+        -enable-kvm \
+        -hda mariner-gen2.qcow2 \
+        -cdrom cloud-init.iso \
+        -nic user,model=virtio-net-pci,hostfwd=tcp:127.0.0.1:10022-:22 \
+        -bios OVMF.fd \
+        -m 4G \
+        -smp 8 \
+        -nographic \
+        -serial pty \
+        -serial stdio
