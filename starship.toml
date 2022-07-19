@@ -21,11 +21,11 @@ $nix_shell\
 $memory_usage\
 $env_var\
 $custom\
+$time\
 $cmd_duration\
 $line_break\
 $jobs\
 $battery\
-$time\
 $status\
 $shell\
 $character"""
@@ -40,3 +40,8 @@ always_show_remote = true
 
 [shell]
 disabled = false
+
+[time]
+disabled = false
+style = "bold green"
+format = '[\[ $time \]]($style) '
