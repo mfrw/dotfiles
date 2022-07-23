@@ -1,9 +1,10 @@
 function cm2rpmbuild -d "Build CBL-Mariner RPMS"
-	set --local options 'h/help' 'r/refresh' 'c/check'  'd/dryrun' 'f/force' 'p/package=' 's/specs='
+	set --local options 'h/help' 'r/refresh' 'c/check'  'd/dryrun' 'f/force' 'n/nukeall' 'p/package=' 's/specs='
 
 	argparse $options -- $argv
 	if test $status -ne 0
-		echo "Check Provided arguments:"
+		echo ""
+		echo "TRY --help"
 		echo "Exiting ..."
 		return 1
 	end
@@ -17,7 +18,8 @@ function cm2rpmbuild -d "Build CBL-Mariner RPMS"
 		echo "	-c/--check    : Run with check distabled/enabled [Default RUN_CHECK=n]"
 		echo "	-p/--package  : Package to build/rebuild [Default all]"
 		echo "	-r/--refresh  : Refresh worker chroot [Default false]"
-		echo "	-f/--force    : Cleanup input-srpms expand-srpms & force a rebuild"
+		echo "	-f/--force    : Force a rebuild"
+		echo "	-n/--nukeall  : Cleanup input-srpms expand-srpms"
 		echo "	-d/--dryrun   : Show the command to be executed."
 		return 0
 	end
@@ -39,7 +41,7 @@ function cm2rpmbuild -d "Build CBL-Mariner RPMS"
 	end
 
 	if set --query _flag_dryrun
-		if set --query _flag_force
+		if set --query _flag_nukeall
 			echo sudo make clean-expand-specs clean-input-srpms
 		end
 
@@ -59,7 +61,7 @@ function cm2rpmbuild -d "Build CBL-Mariner RPMS"
 		return 0
 	end
 
-	if set --query _flag_force
+	if set --query _flag_nukeall
 		command sudo make clean-expand-specs clean-input-srpms
 	end
 
