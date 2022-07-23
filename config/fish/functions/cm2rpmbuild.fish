@@ -51,7 +51,7 @@ function cm2rpmbuild -d "Build CBL-Mariner RPMS"
 			SOURCE_URL="https://cblmarinerstorage.blob.core.windows.net/sources/core" \
 			PACKAGE_URL_LIST="https://cblmarinerdevrepo.blob.core.windows.net/main-latest/RPMS" \
 			SPECS_DIR=$_flag_specs \
-			REPO_LIST='/home/mfrw/mariner-org/repos/extended.repo /home/mfrw/mariner-org/repos/official.repo /home/mfrw/mariner-org/repos/extras.repo /home/mfrw/mariner-org/repos/ms.repo' \
+			REPO_LIST='/home/mfrw/mariner-org/repos/dev.repo /home/mfrw/mariner-org/repos/extended.repo /home/mfrw/mariner-org/repos/official.repo /home/mfrw/mariner-org/repos/extras.repo /home/mfrw/mariner-org/repos/ms.repo' \
 			RUN_CHECK=$_flag_check \
 			REFRESH_WORKER_CHROOT=$_flag_refresh \
 			SRPM_FILE_SIGNATURE_HANDLING=update \
@@ -71,7 +71,7 @@ function cm2rpmbuild -d "Build CBL-Mariner RPMS"
 		SOURCE_URL="https://cblmarinerstorage.blob.core.windows.net/sources/core" \
 		PACKAGE_URL_LIST="https://cblmarinerdevrepo.blob.core.windows.net/main-latest/RPMS" \
 		SPECS_DIR=$_flag_specs \
-		REPO_LIST='/home/mfrw/mariner-org/repos/extended.repo /home/mfrw/mariner-org/repos/official.repo /home/mfrw/mariner-org/repos/extras.repo /home/mfrw/mariner-org/repos/ms.repo' \
+		REPO_LIST='/home/mfrw/mariner-org/repos/dev.repo /home/mfrw/mariner-org/repos/extended.repo /home/mfrw/mariner-org/repos/official.repo /home/mfrw/mariner-org/repos/extras.repo /home/mfrw/mariner-org/repos/ms.repo' \
 		RUN_CHECK=$_flag_check \
 		REFRESH_WORKER_CHROOT=$_flag_refresh \
 		SRPM_FILE_SIGNATURE_HANDLING=update \
