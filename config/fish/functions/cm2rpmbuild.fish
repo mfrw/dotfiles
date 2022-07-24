@@ -57,7 +57,8 @@ function cm2rpmbuild -d "Build CBL-Mariner RPMS"
 			SRPM_FILE_SIGNATURE_HANDLING=update \
 			USE_PACKAGE_BUILD_CACHE=$_flag_force \
 			PACKAGE_REBUILD_LIST="$_flag_package" \
-			PACKAGE_BUILD_LIST="$_flag_package"
+			PACKAGE_BUILD_LIST="$_flag_package" \
+			$argv
 		return 0
 	end
 
@@ -77,5 +78,6 @@ function cm2rpmbuild -d "Build CBL-Mariner RPMS"
 		SRPM_FILE_SIGNATURE_HANDLING=update \
 		USE_PACKAGE_BUILD_CACHE=$_flag_force \
 		PACKAGE_REBUILD_LIST="$_flag_package" \
-		PACKAGE_BUILD_LIST="$_flag_package"
+		PACKAGE_BUILD_LIST="$_flag_package" \
+		$argv
 end
