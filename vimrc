@@ -23,6 +23,7 @@ set maxmempattern=2000000
 set hidden
 "disable BCE: https://sunaku.github.io/vim-256color-bce.html
 set t_ut=
+set mouse=
 
 " Hack
 highlight default link NormalFloat Normal "fix the floating window color issue
