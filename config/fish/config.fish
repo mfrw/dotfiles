@@ -2,7 +2,7 @@ set -Ux LSCOLORS "Gxfxcxdxbxegedabagacad"
 
 setenv GOPATH $HOME/g
 setenv GOROOT $HOME/go
-setenv GOROOT_BOOTSTRAP $HOME/go1.4
+setenv GOROOT_BOOTSTRAP $HOME/go1.18
 
 export PATH="$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin:$HOME/bin:$PATH"
 
