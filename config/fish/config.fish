@@ -39,4 +39,11 @@ if type -q gh
 	source (gh completion -s fish | psub)
 end
 
+# configure pyenv
+if type -q pyenv
+	setenv PYENV_ROOT $HOME/.pyenv
+	pyenv init - | source
+end
+
+
 set -x MOZ_ENABLE_WAYLAND 1
