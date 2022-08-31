@@ -5,6 +5,7 @@
 
 [core]
 	pager = less
+	commitGraph = true
 
 [pager]
         diff = delta
@@ -60,9 +61,12 @@
 	enabled = true
 [fetch]
 	prune = true
+	writeCommitGraph = true
 [format]
 	signoff = true
 [diff]
 	colorMoved = zebra
 [commit]
 	gpgsign = true
+[gc]
+	writeCommitGraph = true
