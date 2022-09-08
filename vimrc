@@ -153,7 +153,7 @@ if has('nvim')
 endif
 
 " Resumeable Rg -- override Rg
-command! -bang -nargs=* Rg :Telescope live_grep
+" command! -bang -nargs=* Rg :Telescope live_grep
 
 " ==================== vim-go ====================
 " go extras
