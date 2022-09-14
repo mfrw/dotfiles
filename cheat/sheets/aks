@@ -1,0 +1,60 @@
+# List all resources groups for an account
+az group list
+
+# Create a resource group
+az group create --name mfrw-learn-cm2-rg --location centralindia
+
+# Nuke a resource group
+az group delete --name mfrw-learn-cm2-rg
+
+# Find all images availible
+az vm image list
+az vm image list --all --publisher MicrosoftCBLMariner
+
+# Create a CM2 vm
+az vm create --name marinator --resource-group mfrw-learn-cm2-rg --location centralindia --image MicrosoftCBLMariner:cbl-mariner:cbl-mariner-2:latest --os-disk-size-gb 32 --admin-username mfrw
+
+# Find Public IP addresses of VMs
+az vm list-ip-addresses -g mfrw-learn-cm2-rg
+
+# Create an AKS cluster with 5 worker-nodes
+# az aks create --help
+# Allowed values for --os-sku: CBLMariner, [Ubuntu], Windows2019, Windows2022
+# Allowed values for --network-plugin: azure, [kubenet], none
+az aks create --name mfrw-cluster --resource-group mfrw-rg --os-sku CBLMariner --enable-addons monitoring -c 5
+
+# Populate .kubeconfig with cluster creds for kubectl
+az aks get-credentials --resource-group mfrw-learn-cm2-rg --name mfrw-cluster
+
+# List all nodepools
+az aks nodepool list --cluster-name mfrw-cluster -g mfrw-learn-cm2-rg
+
+# Scale a specific nodepool (count == 7)
+az aks nodepool scale --cluster-name mfrw-cluster -n nodepool1 -g mfrw-learn-cm2-rg -c 7
+
+# Get the upgrade version availible
+az aks get-upgrades -n mfrw-cluster -g mfrw-learn-cm2-rg
+
+# Upgrade k8s version for a cluster (e.g 1.24.3)
+az aks upgrade -n mfrw-cluster -g mfrw-learn-cm2-rg -k 1.24.3
+
+# Get live view of what is happening
+k get events -w
+
+# YOLO SSH into a node! 
+# k get no -o wide
+# Run a rescue image and chroot to host
+ k debug node/aks-nodepool1-11816235-vmss000000 -it --image=mcr.microsoft.com/aks/fundamental/base-ubuntu:v0.0.11 -- chroot /host /bin/bash
+ k debug node/aks-nodepool1-11816235-vmss000000 -it --image=-it --image=mcr.microsoft.com/dotnet/runtime-deps:6.0
+
+# Get info/logs from a node
+systemctl list-timers
+cat /var/log/dnf.log
+ls /var/run/reboot-required
+journalctl -u kubelet -o cat
+
+# Port Forward & ssh
+# This gives a full control on the Node
+k port-forward name-of-rescue-pod 2022:22 (hPort:rPort)
+ssh azureuser@localhost -p 2022
+
