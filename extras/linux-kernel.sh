@@ -14,9 +14,6 @@ fi
 
 cd linux
 
-echo "Fetch everything!"
-
-git fetch --all --tags
 
 echo "Lets add a buch of remotes"
 
@@ -41,7 +38,11 @@ git remote add willy-linux       git://git.infradead.org/users/willy/linux.git
 git remote add wg-linux          git://git.zx2c4.com/wireguard-linux
 git remote add xarray            git://git.infradead.org/users/willy/xarray.git
 
-echo "Brach out !!!"
+echo "Fetch everything!"
+
+git fetch --all --tags
+
+echo "Branch out !!!"
 
 git branch blk-nxt            linux-block/for-next                      --track
 git branch blk-perf-wip       linux-block/perf-wip                      --track
