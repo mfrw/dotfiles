@@ -21,6 +21,13 @@ function bb -d "Buddy Build stuff"
 		echo "	-f/--force    : Force a rebuild"
 		echo "	-n/--nukeall  : Cleanup input-srpms expand-srpms"
 		echo "	-d/--dryrun   : Show the command to be executed."
+		echo ""
+		echo ""
+		echo "HACK:"
+		echo "     If anything fails try this hack:"
+		echo "     `git checkout -f 2.0-stable` & build vim."
+		echo "     `bb -s path/to/SPECS -p vim` & then switch branch"
+		echo ""
 		return 0
 	end
 
