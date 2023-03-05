@@ -57,12 +57,13 @@ function bb -d "Buddy Build stuff"
 			REBUILD_TOOLS=y \
 			SOURCE_URL="https://cblmarinerstorage.blob.core.windows.net/sources/core" \
 			SPECS_DIR=$_flag_specs \
-			REPO_LIST=(dirname (pwd))/SPECS/mariner-repos/mariner-official-base.repo \
+			REPO_LIST=\"(dirname (pwd))/SPECS/mariner-repos/mariner-official-base.repo (dirname (pwd))/SPECS/mariner-repos/mariner-extended.repo\" \
 			RUN_CHECK=$_flag_check \
 			REFRESH_WORKER_CHROOT=$_flag_refresh \
 			SRPM_FILE_SIGNATURE_HANDLING=update \
 			USE_PACKAGE_BUILD_CACHE=$_flag_force \
 			SRPM_PACK_LIST=$_flag_package \
+			DELTA_BUILD=y \
 			$argv
 		return 0
 	end
@@ -76,11 +77,12 @@ function bb -d "Buddy Build stuff"
 		REBUILD_TOOLS=y \
 		SOURCE_URL="https://cblmarinerstorage.blob.core.windows.net/sources/core" \
 		SPECS_DIR=$_flag_specs \
-		REPO_LIST=(dirname (pwd))/SPECS/mariner-repos/mariner-official-base.repo \
+		REPO_LIST="/home/mfrw/mariner-org/CBL-Mariner/SPECS/mariner-repos/mariner-official-base.repo /home/mfrw/mariner-org/CBL-Mariner/SPECS/mariner-repos/mariner-extended.repo" \
 		RUN_CHECK=$_flag_check \
 		REFRESH_WORKER_CHROOT=$_flag_refresh \
 		SRPM_FILE_SIGNATURE_HANDLING=update \
 		USE_PACKAGE_BUILD_CACHE=$_flag_force \
 		SRPM_PACK_LIST="$_flag_package" \
+		DELTA_BUILD=y \
 		$argv
 end
