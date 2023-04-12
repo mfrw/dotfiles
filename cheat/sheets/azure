@@ -58,3 +58,6 @@ journalctl -u kubelet -o cat
 # Port Forward & ssh
 k port-forward name-of-rescue-pod 2022:22 (hPort:rPort)
 ssh azureuser@localhost -p 2022
+
+# Point TO site VPN:
+https://eng.ms/docs/security-compliance-identity-and-management-scim/security/azure-security/security-health-analytics/network-isolation/tsgs/howtos/work-from-home-guidance/azure-point-to-site-vpn/azure-point-to-site-vpn

@@ -60,3 +60,43 @@ These are the useful build targets:
 | validate-image-config            | Validate the selected image config.
 | workplan                         | Create the package build workplan.
 
+# TRICK to build
+sudo make build-packages REBUILD_TOOLS=y SOURCE_URL="https://cblmarinerstorage.blob.core.windows.net/sources/core" PACKAGE_URL_LIST="https://cblmarinerdevrepo.blob.core.windows.net/main-latest/RPMS" SRPM_PACK_LIST="python-whoosh" SPECS_DIR=/home/mfrw/mariner-org/CBL-Mariner/NEW REPO_LIST="/home/mfrw/mariner-org/repos/extended.repo /home/mfrw/mariner-org/repos/official.repo /home/mfrw/mariner-org/repos/extras.repo /home/mfrw/mariner-org/repos/ms.repo" PACKAGE_BUILD_LIST="python-whoosh" PACKAGE_REBUILD_LIST="python-whoosh" REFRESH_WORKER_CHROOT=n RUN_CHECK=y SRPM_FILE_SIGNATURE_HANDLING=update
+
+
+
+# nuke everything but the spec we want to build
+# commit ...
+# fix the build
+# rebase and drop the nuke comit
+sudo make build-packages REBUILD_TOOLS=y SOURCE_URL="https://cblmarinerstorage.blob.core.windows.net/sources/core" PACKAGE_URL_LIST="https://cblmarinerdevrepo.blob.core.windows.net/main-latest/RPMS" SPECS_DIR=/home/mfrw/mariner-org/CBL-Mariner/SPECS-EXTENDED/ REPO_LIST="/home/mfrw/mariner-org/repos/extended.repo /home/mfrw/mariner-org/repos/official.repo /home/mfrw/mariner-org/repos/extras.repo /home/mfrw/mariner-org/repos/ms.repo" REFRESH_WORKER_CHROOT=n RUN_CHECK=y SRPM_FILE_SIGNATURE_HANDLING=update
+
+
+
+
+
+# final trick to build anything
+sudo make build-packages \
+	     REBUILD_TOOLS=y \
+	     SOURCE_URL="https://cblmarinerstorage.blob.core.windows.net/sources/core" \
+	     PACKAGE_URL_LIST="https://cblmarinerdevrepo.blob.core.windows.net/main-latest/RPMS" \
+	     SPECS_DIR=/home/mfrw/mariner-org/CBL-Mariner/SPECS-EXTENDED/ \
+	     REPO_LIST="/home/mfrw/mariner-org/repos/extended.repo /home/mfrw/mariner-org/repos/official.repo /home/mfrw/mariner-org/repos/extras.repo /home/mfrw/mariner-org/repos/ms.repo" \
+	     REFRESH_WORKER_CHROOT=n \
+	     RUN_CHECK=y \
+	     SRPM_FILE_SIGNATURE_HANDLING=update \
+	     PACKAGE_REBUILD_LIST="python3-whoosh" \
+	     PACKAGE_BUILD_LIST="python3-whoosh"
+
+
+
+
+# fetch toolchain
+git checkout -f 2.0-stable
+sudo make toolchain chroot-tools REBUILD_TOOLCHAIN=n REBUILD_TOOLS=y
+
+# MARINER FAQ
+https://eng.ms/docs/products/mariner-linux/overview/faq
+
+# Build 1.0-dev tricky
+sudo make build-packages REBUILD_TOOLS=y SOURCE_URL="https://cblmarinerstorage.blob.core.windows.net/sources/core" REPO_LIST=/home/mfrw/mariner-org/repos/one-dot-ohh.repo PACKAGE_BUILD_LIST="mlocate" PACKAGE_REBUILD_LIST="mlocate" RUN_CHECK=y

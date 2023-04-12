@@ -21,7 +21,7 @@ az vm list-ip-addresses -g mfrw-learn-cm2-rg
 # az aks create --help
 # Allowed values for --os-sku: CBLMariner, [Ubuntu], Windows2019, Windows2022
 # Allowed values for --network-plugin: azure, [kubenet], none
-az aks create --name mfrw-cluster --resource-group mfrw-rg --os-sku CBLMariner --enable-addons monitoring -c 5
+az aks create --name mfrw-cluster --resource-group mfrw-learn-cm2-rg --os-sku CBLMariner --enable-addons monitoring -c 5
 
 # Populate .kubeconfig with cluster creds for kubectl
 az aks get-credentials --resource-group mfrw-learn-cm2-rg --name mfrw-cluster
