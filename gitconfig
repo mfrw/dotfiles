@@ -9,6 +9,8 @@
 
 [pager]
         diff = delta
+	blame = delta
+	grep = delta
         log = delta
         reflog = delta
         show = delta
@@ -38,10 +40,12 @@
 	dc = diff --cached
 	dump = cat-file -p
 	fo = fetch origin
-	fa = fetch --all --tags
+	fa = fetch --all --tags -j8
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 	lga = log --oneline --graph --all --decorate
 	lo = log --oneline
+	logt = !env GIT_EXTERNAL_DIFF=difft git log -p --ext-diff
+	lp = log --color --pretty=oneline --abbrev-commit HEAD@{1}..
 	pfl = push --force-with-lease
 	pd = push --delete
 	pur = pull --rebase
@@ -71,3 +75,14 @@
 	gpgsign = true
 [gc]
 	writeCommitGraph = true
+
+[diff]
+        tool = difftastic
+
+[difftool]
+        prompt = false
+
+[difftool "difftastic"]
+        cmd = difft "$LOCAL" "$REMOTE"
+[credential]
+	helper = store
