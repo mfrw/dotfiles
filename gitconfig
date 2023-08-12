@@ -44,8 +44,8 @@
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 	lga = log --oneline --graph --all --decorate
 	lo = log --oneline
-	logt = !env GIT_EXTERNAL_DIFF=difft git log -p --ext-diff
-	lp = log --color --pretty=oneline --abbrev-commit HEAD@{1}..
+	lt = !env GIT_EXTERNAL_DIFF=difft git log --ext-diff -p
+	lp = !env GIT_EXTERNAL_DIFF=difft git log --abbrev-commit HEAD@{1}.. --reverse --ext-diff
 	pfl = push --force-with-lease
 	pd = push --delete
 	pur = pull --rebase
