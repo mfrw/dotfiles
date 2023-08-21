@@ -37,7 +37,7 @@ function bb -d "Buddy Build stuff"
 		set _flag_force n
 	end
 
-	set --query _flag_specs; or set --local _flag_specs /home/mfrw/mariner-org/CBL-Mariner/SPECS;
+	set --query _flag_specs; or set --local _flag_specs ../SPECS;
 
 	if set --query _flag_check; or set --local _flag_check n
 		set _flag_check y
@@ -57,7 +57,7 @@ function bb -d "Buddy Build stuff"
 			REBUILD_TOOLS=y \
 			SOURCE_URL="https://cblmarinerstorage.blob.core.windows.net/sources/core" \
 			SPECS_DIR=$_flag_specs \
-			REPO_LIST=\"(dirname (pwd))/SPECS/mariner-repos/mariner-official-base.repo (dirname (pwd))/SPECS/mariner-repos/mariner-extended.repo\" \
+			REPO_LIST=\"../SPECS/mariner-repos/mariner-official-base.repo ../SPECS/mariner-repos/mariner-extended.repo\" \
 			RUN_CHECK=$_flag_check \
 			REFRESH_WORKER_CHROOT=$_flag_refresh \
 			SRPM_FILE_SIGNATURE_HANDLING=update \
@@ -77,7 +77,7 @@ function bb -d "Buddy Build stuff"
 		REBUILD_TOOLS=y \
 		SOURCE_URL="https://cblmarinerstorage.blob.core.windows.net/sources/core" \
 		SPECS_DIR=$_flag_specs \
-		REPO_LIST="/home/mfrw/mariner-org/CBL-Mariner/SPECS/mariner-repos/mariner-official-base.repo /home/mfrw/mariner-org/CBL-Mariner/SPECS/mariner-repos/mariner-extended.repo" \
+		REPO_LIST="../SPECS/mariner-repos/mariner-official-base.repo ../SPECS/mariner-repos/mariner-extended.repo" \
 		RUN_CHECK=$_flag_check \
 		REFRESH_WORKER_CHROOT=$_flag_refresh \
 		SRPM_FILE_SIGNATURE_HANDLING=update \
