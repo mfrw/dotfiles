@@ -55,7 +55,7 @@ function bb -d "Buddy Build stuff"
 		echo make build-packages \
 			CONFIG_FILE= \
 			REBUILD_TOOLS=y \
-			SOURCE_URL="https://cblmarinerstorage.blob.core.windows.net/sources/core" \
+			SOURCE_URL="https://azurelinuxsrcstorage.blob.core.windows.net/sources/core" \
 			SPECS_DIR=$_flag_specs \
 			REPO_LIST=\"../SPECS/mariner-repos/mariner-official-base.repo ../SPECS/mariner-repos/mariner-extended.repo\" \
 			RUN_CHECK=$_flag_check \
@@ -75,7 +75,7 @@ function bb -d "Buddy Build stuff"
 	command sudo make build-packages \
 		CONFIG_FILE= \
 		REBUILD_TOOLS=y \
-		SOURCE_URL="https://cblmarinerstorage.blob.core.windows.net/sources/core" \
+		SOURCE_URL="https://azurelinuxsrcstorage.blob.core.windows.net/sources/core" \
 		SPECS_DIR=$_flag_specs \
 		REPO_LIST="../SPECS/mariner-repos/mariner-official-base.repo ../SPECS/mariner-repos/mariner-extended.repo" \
 		RUN_CHECK=$_flag_check \

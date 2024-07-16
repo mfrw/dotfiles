@@ -13,6 +13,7 @@ az vm image list --all --publisher MicrosoftCBLMariner
 
 # Create a CM2 vm
 az vm create --name marinator --resource-group mfrw-learn-cm2-rg --location centralindia --image MicrosoftCBLMariner:cbl-mariner:cbl-mariner-2:latest --os-disk-size-gb 32 --admin-username mfrw
+az vm create --name marinerarm642 --resource-group jiria-arm64 --image MicrosoftCBLMariner:cbl-mariner:cbl-mariner-2-arm64:latest --size standard_d2pls_v5 --vnet-name arm64vm-vnet  --nsg arm64vm-nsg --adm in-username azureuser  --ssh-key-values id_rsa.pub --subnet default
 
 # Find Public IP addresses of VMs
 az vm list-ip-addresses -g mfrw-learn-cm2-rg

@@ -9,6 +9,9 @@ function mb -d "CBL-Mariner Rebuild packages given as args"
 	USE_PACKAGE_BUILD_CACHE=y \
 	SRPM_FILE_SIGNATURE_HANDLING=update \
 	SOURCE_URL="https://cblmarinerstorage.blob.core.windows.net/sources/core" \
+	PACKAGE_URL_LIST="https://cblmarinerdevrepo.blob.core.windows.net/main-latest/RPMS" \
+	USE_PREVIEW_REPO=n \
+	REFRESH_WORKER_CHROOT=n \
 	LOG_LEVEL=info
 end
 
