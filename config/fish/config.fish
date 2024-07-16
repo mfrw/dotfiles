@@ -1,10 +1,12 @@
 set -Ux LSCOLORS "Gxfxcxdxbxegedabagacad"
 
+setenv TASKDDATA /var/taskd
+
 setenv GOPATH $HOME/g
 setenv GOROOT $HOME/go
 setenv GOROOT_BOOTSTRAP $HOME/go1.18
 
-export PATH="$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin:$HOME/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin:$HOME/bin:$HOME/.local/bin:$PATH"
 
 if type -q nvim
 	setenv EDITOR nvim
@@ -44,6 +46,3 @@ if type -q pyenv
 	setenv PYENV_ROOT $HOME/.pyenv
 	pyenv init - | source
 end
-
-
-set -x MOZ_ENABLE_WAYLAND 1
