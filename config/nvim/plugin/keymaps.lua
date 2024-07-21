@@ -19,12 +19,6 @@ end, { expr = true })
 set("n", "]d", vim.diagnostic.goto_next)
 set("n", "[d", vim.diagnostic.goto_prev)
 
--- These mappings control the size of splits (height/width)
-set("n", "<M-,>", "<c-w>5<")
-set("n", "<M-.>", "<c-w>5>")
-set("n", "<M-t>", "<C-W>+")
-set("n", "<M-s>", "<C-W>-")
-
 set("n", "<M-j>", function()
 	if vim.opt.diff:get() then
 		vim.cmd([[normal! ]c]])
@@ -48,7 +42,6 @@ set("n", "<leader>f", "<cmd>:Neotree reveal<CR>", { desc = "Reveal File in Neotr
 -- Fugitive
 set("n", "<leader>g", "<cmd>:Git<CR>", { desc = "Open Fugitive Git" })
 set("n", "<leader>t", "<cmd>:TagbarToggle<CR>", { desc = "Open Tagbar" })
-set("n", "cc", ":<C-U>Git commit -s<CR>", { desc = "Commit with signoff" })
 
 -- Telescope
 local telescope_builtin = require("telescope.builtin")
