@@ -49,3 +49,33 @@ vim.cmd("set nolist")
 vim.cmd("set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣")
 vim.cmd("set maxmempattern=2000000")
 vim.cmd("set hidden")
+
+-- infinte undo
+vim.opt.undofile = true
+
+-- always center search results
+vim.keymap.set("n", "n", "nzz", { silent = true })
+vim.keymap.set("n", "N", "Nzz", { silent = true })
+vim.keymap.set("n", "*", "*zz", { silent = true })
+vim.keymap.set("n", "#", "#zz", { silent = true })
+vim.keymap.set("n", "g*", "g*zz", { silent = true })
+
+-- highlight yanked text
+vim.api.nvim_create_autocmd("TextYankPost", {
+	pattern = "*",
+	command = "silent! lua vim.highlight.on_yank({ timeout = 500 })",
+})
+
+-- jump to last edit position on opening file
+vim.api.nvim_create_autocmd("BufReadPost", {
+	pattern = "*",
+	callback = function(ev)
+		if vim.fn.line("'\"") > 1 and vim.fn.line("'\"") <= vim.fn.line("$") then
+			-- except for in git commit messages
+			-- https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
+			if not vim.fn.expand("%:p"):find(".git", 1, true) then
+				vim.cmd('exe "normal! g\'\\""')
+			end
+		end
+	end,
+})
