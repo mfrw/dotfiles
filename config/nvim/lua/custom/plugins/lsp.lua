@@ -2,7 +2,7 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			"folke/neodev.nvim",
+			"folke/lazydev.nvim",
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -13,10 +13,10 @@ return {
 			"stevearc/conform.nvim",
 
 			-- Schema information
-			"b0o/SchemaStore.nvim",
+			-- "b0o/SchemaStore.nvim",
 		},
 		config = function()
-			require("neodev").setup({
+			require("lazydev").setup({
 				-- library = {
 				--   plugins = { "nvim-dap-ui" },
 				--   types = true,
@@ -46,13 +46,46 @@ return {
 						},
 					},
 				},
-				rust_analyzer = true,
-
+				-- rust_analyzer = true,
+				rust_analyzer = {
+					settings = {
+						["rust-analyzer"] = {
+							cargo = {
+								allFeatures = true,
+							},
+							imports = {
+								group = {
+									enable = false,
+								},
+							},
+							completion = {
+								postfix = {
+									enable = false,
+								},
+							},
+						},
+					},
+				},
 				clangd = {
 					-- TODO: Could include cmd, but not sure those were all relevant flags.
 					--    looks like something i would have added while i was floundering
 					init_options = { clangdFileStatus = true },
 					filetypes = { "c" },
+				},
+				-- pyright = { manual_install = true },
+				pylsp = {
+					settings = {
+						pylsp = {
+							plugins = {
+								pycodestyle = {
+									convention = "None",
+									ignore = { "W391", "pep8" },
+									maxLineLength = 180,
+								},
+								autopep8 = { enabled = false },
+							},
+						},
+					},
 				},
 			}
 
@@ -74,7 +107,7 @@ return {
 			}
 
 			vim.list_extend(ensure_installed, servers_to_install)
-			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+			require("mason-tool-installer").setup({ ensure_installed = ensure_installed, autoupdate = true })
 
 			for name, config in pairs(servers) do
 				if config == true then
