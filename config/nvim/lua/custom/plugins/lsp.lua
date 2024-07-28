@@ -63,6 +63,21 @@ return {
 									enable = false,
 								},
 							},
+							procMacro = {
+								enable = true,
+							},
+							add_return_type = {
+								enable = true,
+							},
+							inlayHints = {
+								enable = true,
+								showParameterNames = true,
+								parameterHintsPrefix = "<- ",
+								otherHintsPrefix = "=> ",
+							},
+							diagnostics = {
+								enable = true,
+							},
 						},
 					},
 				},
