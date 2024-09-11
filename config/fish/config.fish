@@ -46,3 +46,5 @@ if type -q pyenv
 	setenv PYENV_ROOT $HOME/.pyenv
 	pyenv init - | source
 end
+
+setenv COLORTERM truecolor
