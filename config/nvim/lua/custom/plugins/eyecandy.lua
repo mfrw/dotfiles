@@ -12,7 +12,7 @@ return {
 				active = {
 					left = {
 						{ "mode", "paste" },
-						{ "readonly", "filename", "modified" },
+						{ "gitbranch", "readonly", "filename", "modified" },
 					},
 					right = {
 						{ "lineinfo" },
@@ -22,6 +22,7 @@ return {
 				},
 				component_function = {
 					filename = "LightlineFilename",
+					gitbranch = "FugitiveHead",
 				},
 			}
 			function LightlineFilenameInLua(opts)
