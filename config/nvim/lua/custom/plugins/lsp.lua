@@ -124,20 +124,28 @@ return {
 
 			vim.list_extend(ensure_installed, servers_to_install)
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed, autoupdate = true })
-
+			vim.lsp.config("*", {
+				capabilities = capabilities,
+			})
+			-- Configure and enable each LSP server
 			for name, config in pairs(servers) do
 				if config == true then
 					config = {}
 				end
-				config = vim.tbl_deep_extend("force", {}, {
-					capabilities = capabilities,
-				}, config)
 
-				lspconfig[name].setup(config)
+				-- Only call vim.lsp.config if there are server-specific settings
+				if next(config) ~= nil then
+					-- Remove manual_install flag as it's not an LSP config field
+					local lsp_config = vim.tbl_deep_extend("force", {}, config)
+					lsp_config.manual_install = nil
+					vim.lsp.config(name, lsp_config)
+				end
+
+				vim.lsp.enable(name)
 			end
 
 			local disable_semantic_tokens = {
-				lua = true,
+				-- lua = true,
 			}
 
 			vim.api.nvim_create_autocmd("LspAttach", {
