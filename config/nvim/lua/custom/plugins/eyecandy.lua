@@ -1,6 +1,5 @@
 return {
 	"airblade/vim-gitgutter",
-	"bronson/vim-trailing-whitespace",
 	-- nice bar at the bottom
 	{
 		"itchyny/lightline.vim",

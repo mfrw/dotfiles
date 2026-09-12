@@ -1,8 +1,5 @@
 local set = vim.keymap.set
 
-set("n", "<leader>x", "<cmd>.lua<CR>", { desc = "Execute the current line" })
-set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Execute the current file" })
-
 -- Toggle hlsearch if it's on, otherwise just do "enter"
 set("n", "<CR>", function()
 	---@diagnostic disable-next-line: undefined-field
@@ -41,7 +38,6 @@ set("n", "<leader>f", "<cmd>:Neotree reveal<CR>", { desc = "Reveal File in Neotr
 
 -- Fugitive
 set("n", "<leader>g", "<cmd>:Git<CR>", { desc = "Open Fugitive Git" })
-set("n", "<leader>t", "<cmd>:TagbarToggle<CR>", { desc = "Open Tagbar" })
 
 -- Telescope
 local telescope_builtin = require("telescope.builtin")
