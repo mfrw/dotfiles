@@ -4,6 +4,11 @@ return {
 		dependencies = {
 			"folke/lazydev.nvim",
 			"williamboman/mason.nvim",
+			-- required (even with no explicit setup call) so that
+			-- mason-tool-installer can translate lspconfig server names
+			-- (lua_ls, rust_analyzer, yamlls, ...) into actual mason
+			-- package names (lua-language-server, rust-analyzer, ...)
+			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 
 			{ "j-hui/fidget.nvim", opts = {} },
