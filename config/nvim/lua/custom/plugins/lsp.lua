@@ -85,7 +85,14 @@ return {
 					init_options = { clangdFileStatus = true },
 					filetypes = { "c" },
 				},
-				zls = true,
+				-- built from source against zig master; mason only ships tagged
+				-- zls releases and zigtools publishes no nightlies, so a mason
+				-- zls always lags zig master by a minor version and mis-parses
+				-- its AST. rebuild with: git -C ~/zutils/zls pull && zig build -Doptimize=ReleaseSafe
+				zls = {
+					manual_install = true,
+					cmd = { vim.fn.expand("~/zutils/zls/zig-out/bin/zls") },
+				},
 			}
 
 			local servers_to_install = vim.tbl_filter(function(key)
