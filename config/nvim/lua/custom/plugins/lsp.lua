@@ -4,16 +4,12 @@ return {
 		dependencies = {
 			"folke/lazydev.nvim",
 			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 
 			{ "j-hui/fidget.nvim", opts = {} },
 
 			-- Autoformatting
 			"stevearc/conform.nvim",
-
-			-- Schema information
-			-- "b0o/SchemaStore.nvim",
 		},
 		config = function()
 			require("lazydev").setup({
@@ -27,8 +23,6 @@ return {
 			if pcall(require, "cmp_nvim_lsp") then
 				capabilities = require("cmp_nvim_lsp").default_capabilities()
 			end
-
-			local lspconfig = require("lspconfig")
 
 			local servers = {
 				gopls = {
@@ -46,7 +40,6 @@ return {
 						},
 					},
 				},
-				-- rust_analyzer = true,
 				rust_analyzer = {
 					settings = {
 						["rust-analyzer"] = {
@@ -95,26 +88,10 @@ return {
 								enable = false,
 								url = "",
 							},
-							-- schemas = require("schemastore").yaml.schemas(),
 						},
 					},
 				},
 				zls = true,
-
-				--				pylsp = {
-				--					settings = {
-				--						pylsp = {
-				--							plugins = {
-				--								pycodestyle = {
-				--									convention = "None",
-				--									ignore = { "W391", "pep8" },
-				--									maxLineLength = 180,
-				--								},
-				--								autopep8 = { enabled = false },
-				--							},
-				--						},
-				--					},
-				--				},
 			}
 
 			local servers_to_install = vim.tbl_filter(function(key)
@@ -166,14 +143,6 @@ return {
 					local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "must have valid client")
 
 					vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
-					-- vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = 0 })
-					-- vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = 0 })
-					-- vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 })
-					-- vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = 0 })
-					-- vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-
-					-- vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, { buffer = 0 })
-					-- vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, { buffer = 0 })
 
 					vim.keymap.set("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", {})
 					vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", {})
@@ -184,9 +153,9 @@ return {
 					vim.keymap.set("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", {})
 					vim.keymap.set("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", {})
 					vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", {})
-					vim.keymap.set("n", "<space>e", "<cmd>lua vim.diagnostic.get()<CR>", {})
-					vim.keymap.set("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", {})
-					vim.keymap.set("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", {})
+					vim.keymap.set("n", "<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>", {})
+					vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", {})
+					vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", {})
 					vim.keymap.set("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", {})
 					vim.keymap.set("n", "<space>ci", "<cmd>lua vim.lsp.buf.incoming_calls()<CR>", {})
 					vim.keymap.set("n", "<space>co", "<cmd>lua vim.lsp.buf.outgoing_calls()<CR>", {})
