@@ -87,22 +87,34 @@ return {
 					init_options = { clangdFileStatus = true },
 					filetypes = { "c" },
 				},
-				-- pyright = { manual_install = true },
-				pylsp = {
+				pyright = { manual_install = true },
+				yamlls = {
 					settings = {
-						pylsp = {
-							plugins = {
-								pycodestyle = {
-									convention = "None",
-									ignore = { "W391", "pep8" },
-									maxLineLength = 180,
-								},
-								autopep8 = { enabled = false },
+						yaml = {
+							schemaStore = {
+								enable = false,
+								url = "",
 							},
+							-- schemas = require("schemastore").yaml.schemas(),
 						},
 					},
 				},
 				zls = true,
+
+				--				pylsp = {
+				--					settings = {
+				--						pylsp = {
+				--							plugins = {
+				--								pycodestyle = {
+				--									convention = "None",
+				--									ignore = { "W391", "pep8" },
+				--									maxLineLength = 180,
+				--								},
+				--								autopep8 = { enabled = false },
+				--							},
+				--						},
+				--					},
+				--				},
 			}
 
 			local servers_to_install = vim.tbl_filter(function(key)

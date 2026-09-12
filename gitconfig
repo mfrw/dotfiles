@@ -1,7 +1,6 @@
 [user]
 	email = falakreyaz@gmail.com
 	name  = Muhammad Falak R Wani
-	signingkey = 52EAF8584C0E9B51405CA80DD323A5E0174C86DD
 
 [core]
 	pager = less
@@ -72,7 +71,7 @@
 [diff]
 	colorMoved = zebra
 [commit]
-	gpgsign = true
+	gpgsign = false
 [gc]
 	writeCommitGraph = true
 
@@ -86,3 +85,9 @@
         cmd = difft "$LOCAL" "$REMOTE"
 [credential]
 	helper = store
+[credential "https://github.com"]
+	helper = 
+	helper = !/Users/mfrw/g/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/Users/mfrw/g/bin/gh auth git-credential
