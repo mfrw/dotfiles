@@ -4,6 +4,39 @@ return {
 		build = ":TSUpdate",
 		branch = "main",
 		lazy = false,
+		config = function()
+			local ensure_installed = {
+				-- languages actually used via lsp.lua servers
+				"go",
+				"rust",
+				"c",
+				"cpp",
+				"python",
+				"yaml",
+				"zig",
+				"lua",
+				"luadoc",
+				-- generally useful everywhere (configs, docs, git)
+				"bash",
+				"json",
+				"toml",
+				"markdown",
+				"markdown_inline",
+				"diff",
+				"gitcommit",
+				"query",
+			}
+
+			require("nvim-treesitter").install(ensure_installed)
+
+			-- Treesitter highlighting is opt-in per-buffer on the `main` branch;
+			-- try to start it for every filetype (silently no-ops if no parser).
+			vim.api.nvim_create_autocmd("FileType", {
+				callback = function()
+					pcall(vim.treesitter.start)
+				end,
+			})
+		end,
 	},
 	"nvim-treesitter/nvim-treesitter-context",
 	-- "nvim-treesitter/nvim-treesitter-refactor",
