@@ -86,16 +86,6 @@ return {
 					filetypes = { "c" },
 				},
 				pyright = { manual_install = true },
-				yamlls = {
-					settings = {
-						yaml = {
-							schemaStore = {
-								enable = false,
-								url = "",
-							},
-						},
-					},
-				},
 				zls = true,
 			}
 
