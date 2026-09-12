@@ -45,6 +45,9 @@ for _, ft_path in ipairs(vim.api.nvim_get_runtime_file("lua/custom/snippets/*.lu
   loadfile(ft_path)()
 end
 
+-- Load community snippet collection (rafamadriz/friendly-snippets)
+require("luasnip.loaders.from_vscode").lazy_load()
+
 vim.keymap.set({ "i", "s" }, "<c-k>", function()
   return vim.snippet.active { direction = 1 } and vim.snippet.jump(1)
 end, { silent = true })

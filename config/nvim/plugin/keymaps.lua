@@ -41,7 +41,6 @@ set("n", "<leader>f", "<cmd>:Neotree reveal<CR>", { desc = "Reveal File in Neotr
 
 -- Fugitive
 set("n", "<leader>g", "<cmd>:Git<CR>", { desc = "Open Fugitive Git" })
-set("n", "<leader>t", "<cmd>:TagbarToggle<CR>", { desc = "Open Tagbar" })
 
 -- Telescope
 local telescope_builtin = require("telescope.builtin")

@@ -6,7 +6,6 @@ return {
 			require("gitsigns").setup()
 		end,
 	},
-	"bronson/vim-trailing-whitespace",
 	-- nice bar at the bottom
 	{
 		"itchyny/lightline.vim",
