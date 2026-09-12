@@ -19,6 +19,14 @@ opt.splitright = true
 opt.signcolumn = "yes"
 opt.shada = { "'10", "<0", "s10", "h" }
 
+-- gopls declares "gotmpl" as one of its filetypes, but nvim doesn't know
+-- this filetype/extension by default
+vim.filetype.add({
+	extension = {
+		gotmpl = "gotmpl",
+	},
+})
+
 opt.clipboard = ""
 
 -- Don't have `o` add a comment
