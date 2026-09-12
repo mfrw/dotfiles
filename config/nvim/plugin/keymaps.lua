@@ -11,11 +11,6 @@ set("n", "<CR>", function()
 	end
 end, { expr = true })
 
--- There are builtin keymaps for this now, but I like that it shows
--- the float when I navigate to the error - so I override them.
--- set("n", "]d", vim.diagnostic.goto_next)
--- set("n", "[d", vim.diagnostic.goto_prev)
-
 set("n", "<M-j>", function()
 	if vim.opt.diff:get() then
 		vim.cmd([[normal! ]c]])
