@@ -1,0 +1,3 @@
+# Start a vm with a compiled kernel in the current dir
+# ensure busybox is installed on the host system
+virtme-run --kdir (pwd) --mods=auto   --cpus 4 --memory 4096M --net user --name qemu-x86_64 --qemu-opts -device virtio-balloon

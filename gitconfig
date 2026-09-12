@@ -69,6 +69,9 @@
 	writeCommitGraph = true
 [format]
 	signoff = true
+	numbered = auto
+	coverLetter = auto
+	thread = shallow
 [diff]
 	colorMoved = zebra
 [commit]
@@ -86,3 +89,15 @@
         cmd = difft "$LOCAL" "$REMOTE"
 [credential]
 	helper = store
+[safe]
+[sendemail]
+	smtpserver = smtp.gmail.com
+	smtpserverport = 587
+	smtpencryption = tls
+	smtpuser = falakreyaz@gmail.com
+	confirm = always
+	transferencoding = 8bit
+	assume8bitEncoding = UTF-8
+	suppresscc = self
+	thread = true
+	chainreplyto = false
