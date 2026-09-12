@@ -165,7 +165,7 @@ return {
 					if client:supports_method("textDocument/inlayHint") then
 						vim.keymap.set("n", "<space>ih", function()
 							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
-						end, { desc = "Toggle inlay hints", buffer = bufnr })
+						end, { desc = "Toggle inlay hints", buf = bufnr })
 					end
 
 					local filetype = vim.bo[bufnr].filetype
