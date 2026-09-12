@@ -81,3 +81,14 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 vim.diagnostic.config({ virtual_text = true })
+
+-- trim trailing whitespace on save, preserving cursor position/view
+-- (replaces bronson/vim-trailing-whitespace)
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*",
+	callback = function()
+		local view = vim.fn.winsaveview()
+		vim.cmd([[keeppatterns %s/\s\+$//e]])
+		vim.fn.winrestview(view)
+	end,
+})
