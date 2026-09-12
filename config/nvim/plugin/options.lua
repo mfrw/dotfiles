@@ -63,7 +63,7 @@ vim.keymap.set("n", "g*", "g*zz", { silent = true })
 -- highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
 	pattern = "*",
-	command = "silent! lua vim.highlight.on_yank({ timeout = 500 })",
+	command = "silent! lua vim.hl.hl_op({ higroup = 'IncSearch', timeout = 500 })",
 })
 
 -- jump to last edit position on opening file
