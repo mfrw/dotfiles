@@ -107,6 +107,7 @@ return {
 			require("mason").setup()
 			local ensure_installed = {
 				-- "tailwind-language-server",
+				"stylua", -- formatter for lua, used by conform.nvim below
 			}
 
 			vim.list_extend(ensure_installed, servers_to_install)
