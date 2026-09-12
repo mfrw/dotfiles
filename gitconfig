@@ -6,6 +6,7 @@
 [core]
 	pager = less
 	commitGraph = true
+	ignorecase = false
 
 [pager]
         diff = delta
@@ -72,7 +73,7 @@
 [diff]
 	colorMoved = zebra
 [commit]
-	gpgsign = true
+	gpgsign = false
 [gc]
 	writeCommitGraph = true
 
@@ -86,3 +87,18 @@
         cmd = difft "$LOCAL" "$REMOTE"
 [credential]
 	helper = store
+	azreposCredentialType = oauth
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://github.com"]
+	helper = 
+	helper = !/Users/mfrw/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/Users/mfrw/bin/gh auth git-credential
+[credendial]
+	helper = manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+[credential "azrepos:org/mariner-org"]
+	username = mwani@microsoft.com

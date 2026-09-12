@@ -6,7 +6,7 @@ setenv GOPATH $HOME/g
 setenv GOROOT $HOME/go
 setenv GOROOT_BOOTSTRAP $HOME/go1.18
 
-export PATH="$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin:$HOME/bin:$HOME/.local/bin:$PATH"
+export PATH="$HOME/.cdp/cdecli:/opt/homebrew/opt/coreutils/libexec/gnubin:$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin:$HOME/bin:$HOME/.local/bin:$PATH:$HOME/.swiftly/bin/"
 
 if type -q nvim
 	setenv EDITOR nvim
@@ -47,4 +47,18 @@ if type -q pyenv
 	pyenv init - | source
 end
 
+
 setenv COLORTERM truecolor
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+
+source "/Users/mfrw/.swiftly/env.fish"
+
+if type -q mise
+	mise activate fish | source
+end
+
+# BEGIN Agency MANAGED BLOCK
+fish_add_path "/Users/mfrw/.config/agency/CurrentVersion"
+# END Agency MANAGED BLOCK
