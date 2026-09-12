@@ -152,7 +152,17 @@ return {
 					vim.keymap.set("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", {})
 					vim.keymap.set("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", {})
 					vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", {})
-					vim.keymap.set("n", "<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>", {})
+					vim.keymap.set("n", "<space>e", function()
+						-- If the current line already has a diagnostic, just show it.
+						if #vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 }) > 0 then
+							vim.diagnostic.open_float()
+							return
+						end
+						-- Otherwise jump to the nearest diagnostic (wrapping), then show it.
+						if not vim.diagnostic.jump({ count = 1, wrap = true, float = true }) then
+							vim.notify("No diagnostics in buffer", vim.log.levels.INFO)
+						end
+					end, { desc = "Show/jump to nearest diagnostic" })
 					vim.keymap.set("n", "[d", function()
 						vim.diagnostic.jump({ count = -1, float = true })
 					end, {})
@@ -181,17 +191,37 @@ return {
 				formatters_by_ft = {
 					lua = { "stylua" },
 				},
-			})
-
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				callback = function(args)
-					require("conform").format({
-						bufnr = args.buf,
-						lsp_fallback = true,
-						quiet = true,
-					})
+				format_on_save = function(bufnr)
+					if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+						return
+					end
+					return { lsp_fallback = true, quiet = true }
 				end,
 			})
+
+			vim.api.nvim_create_user_command("FormatDisable", function(args)
+				if args.bang then
+					-- FormatDisable! disables formatting just for this buffer
+					vim.b.disable_autoformat = true
+				else
+					vim.g.disable_autoformat = true
+				end
+			end, { desc = "Disable autoformat-on-save", bang = true })
+
+			vim.api.nvim_create_user_command("FormatEnable", function()
+				vim.b.disable_autoformat = false
+				vim.g.disable_autoformat = false
+			end, { desc = "Re-enable autoformat-on-save" })
+
+			vim.keymap.set("n", "<space>tf", function()
+				if vim.g.disable_autoformat then
+					vim.cmd("FormatEnable")
+					vim.notify("Autoformat on save: ON")
+				else
+					vim.cmd("FormatDisable")
+					vim.notify("Autoformat on save: OFF")
+				end
+			end, { desc = "Toggle autoformat-on-save" })
 		end,
 	},
 }
