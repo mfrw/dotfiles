@@ -37,14 +37,11 @@ return {
 				end
 			end
 			-- https://github.com/itchyny/lightline.vim/issues/657
-			vim.api.nvim_exec(
-				[[
+			vim.cmd([[
 				function! g:LightlineFilename()
 					return v:lua.LightlineFilenameInLua()
 				endfunction
-				]],
-				true
-			)
+				]])
 		end,
 	},
 }
