@@ -89,10 +89,10 @@ return {
 				-- zls releases and zigtools publishes no nightlies, so a mason
 				-- zls always lags zig master by a minor version and mis-parses
 				-- its AST. rebuild with: git -C ~/zutils/zls pull && zig build -Doptimize=ReleaseSafe
-				zls = {
-					manual_install = true,
-					cmd = { vim.fn.expand("~/zutils/zls/zig-out/bin/zls") },
-				},
+				--	zls = {
+				--		manual_install = true,
+				--		cmd = { vim.fn.expand("~/zutils/zls/zig-out/bin/zls") },
+				--	},
 			}
 
 			local servers_to_install = vim.tbl_filter(function(key)
@@ -175,7 +175,10 @@ return {
 
 					if client:supports_method("textDocument/inlayHint") then
 						vim.keymap.set("n", "<space>ih", function()
-							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+							vim.lsp.inlay_hint.enable(
+								not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }),
+								{ bufnr = bufnr }
+							)
 						end, { desc = "Toggle inlay hints", buf = bufnr })
 					end
 
