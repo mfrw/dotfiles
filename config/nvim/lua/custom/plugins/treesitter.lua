@@ -14,17 +14,6 @@ return {
 				"python",
 				"yaml",
 				"zig",
-				"lua",
-				"luadoc",
-				-- generally useful everywhere (configs, docs, git)
-				"bash",
-				"json",
-				"toml",
-				"markdown",
-				"markdown_inline",
-				"diff",
-				"gitcommit",
-				"query",
 			}
 
 			require("nvim-treesitter").install(ensure_installed)
