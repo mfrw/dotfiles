@@ -15,6 +15,10 @@ return {
 				"python",
 				"yaml",
 				"zig",
+				-- nixpkgs review work happens in .nix files; without this
+				-- parser they get no highlighting and the treesitter foldexpr
+				-- set in options.lua has nothing to fold on
+				"nix",
 			}
 
 			require("nvim-treesitter").install(ensure_installed)
