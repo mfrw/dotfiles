@@ -92,3 +92,11 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		vim.fn.winrestview(view)
 	end,
 })
+
+-- folding: treesitter by default, upgraded per-window to LSP folding in
+-- lsp.lua when the attached server advertises textDocument/foldingRange.
+-- foldlevelstart is high so files never open already folded.
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldtext = ""
+vim.o.foldlevelstart = 99

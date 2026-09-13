@@ -142,36 +142,98 @@ return {
 
 					vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
 
-					vim.keymap.set("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", {})
-					vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", {})
-					vim.keymap.set("n", "<C-]>", "<cmd>Telescope lsp_definitions<CR>", {})
-					vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {})
-					vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", {})
-					vim.keymap.set("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", {})
-					vim.keymap.set("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", {})
-					vim.keymap.set("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", {})
-					vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", {})
-					vim.keymap.set("n", "<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>", {})
-					vim.keymap.set("n", "[d", function()
-						vim.diagnostic.jump({ count = -1, float = true })
-					end, {})
-					vim.keymap.set("n", "]d", function()
-						vim.diagnostic.jump({ count = 1, float = true })
-					end, {})
-					vim.keymap.set("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", {})
-					vim.keymap.set("n", "<space>ci", "<cmd>lua vim.lsp.buf.incoming_calls()<CR>", {})
-					vim.keymap.set("n", "<space>co", "<cmd>lua vim.lsp.buf.outgoing_calls()<CR>", {})
+					-- only map when the server actually advertises the method, so
+					-- unsupported keys stay unmapped instead of silently doing
+					-- nothing (zls, for example, offers no call hierarchy)
+					local function map(keys, fn, desc, method)
+						if method and not client:supports_method(method) then
+							return
+						end
+						vim.keymap.set("n", keys, fn, { buffer = bufnr, desc = "lsp: " .. desc })
+					end
 
-					if client:supports_method("textDocument/inlayHint") then
-						vim.keymap.set("n", "<space>ih", function()
-							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
-						end, { desc = "Toggle inlay hints", buffer = bufnr })
+					-- nvim already ships grn (rename), gra (code action, also in
+					-- visual mode), grr (references), gri (implementation), grt
+					-- (type definition), grx (run code lens), gO (document
+					-- symbols) and i_<C-S> (signature help), plus [d ]d ]D [D and
+					-- <C-W>d for diagnostics. Only map what those do not cover.
+					map("gd", vim.lsp.buf.definition, "goto definition", "textDocument/definition")
+					map("<C-]>", "<cmd>Telescope lsp_definitions<CR>", "goto definition (telescope)", "textDocument/definition")
+					map("K", vim.lsp.buf.hover, "hover documentation", "textDocument/hover")
+					map("<C-k>", vim.lsp.buf.signature_help, "signature help", "textDocument/signatureHelp")
+					map("<space>q", vim.diagnostic.setloclist, "diagnostics to loclist")
+					map("<space>ci", vim.lsp.buf.incoming_calls, "incoming calls", "textDocument/prepareCallHierarchy")
+					map("<space>co", vim.lsp.buf.outgoing_calls, "outgoing calls", "textDocument/prepareCallHierarchy")
+					map(
+						"<space>ws",
+						"<cmd>Telescope lsp_dynamic_workspace_symbols<CR>",
+						"workspace symbols",
+						"workspace/symbol"
+					)
+					map("<space>ts", function()
+						vim.lsp.buf.typehierarchy("supertypes")
+					end, "supertypes", "textDocument/prepareTypeHierarchy")
+					map("<space>tb", function()
+						vim.lsp.buf.typehierarchy("subtypes")
+					end, "subtypes", "textDocument/prepareTypeHierarchy")
+					map("<space>ih", function()
+						vim.lsp.inlay_hint.enable(
+							not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }),
+							{ bufnr = bufnr }
+						)
+					end, "toggle inlay hints", "textDocument/inlayHint")
+
+					-- highlight the other references to the symbol under the cursor
+					if client:supports_method("textDocument/documentHighlight") then
+						local group =
+							vim.api.nvim_create_augroup("lsp_document_highlight_" .. bufnr, { clear = true })
+						vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+							group = group,
+							buffer = bufnr,
+							callback = function()
+								vim.lsp.buf.document_highlight()
+							end,
+						})
+						vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+							group = group,
+							buffer = bufnr,
+							callback = function()
+								vim.lsp.buf.clear_references()
+							end,
+						})
+					end
+
+					-- prefer LSP folding over the treesitter default (options.lua)
+					-- wherever this buffer is displayed
+					if client:supports_method("textDocument/foldingRange") then
+						for _, win in ipairs(vim.fn.win_findbuf(bufnr)) do
+							vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
+						end
+					end
+
+					-- nvim's grx runs the lens under the cursor. enable() installs
+					-- its own debounced on_lines refresh, so no autocmd is needed
+					-- here (and vim.lsp.codelens.refresh is deprecated in 0.12)
+					if client:supports_method("textDocument/codeLens") then
+						vim.lsp.codelens.enable(true, { bufnr = bufnr })
 					end
 
 					local filetype = vim.bo[bufnr].filetype
 					if disable_semantic_tokens[filetype] then
 						client.server_capabilities.semanticTokensProvider = nil
 					end
+				end,
+			})
+
+			vim.api.nvim_create_autocmd("LspDetach", {
+				callback = function(args)
+					-- only tear down once the last client leaves the buffer; the
+					-- detaching client is still listed at this point
+					if #vim.lsp.get_clients({ bufnr = args.buf }) > 1 then
+						return
+					end
+					pcall(vim.api.nvim_del_augroup_by_name, "lsp_document_highlight_" .. args.buf)
+					pcall(vim.lsp.buf.clear_references)
 				end,
 			})
 
