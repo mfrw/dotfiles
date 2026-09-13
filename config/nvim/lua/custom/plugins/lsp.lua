@@ -158,7 +158,12 @@ return {
 					-- symbols) and i_<C-S> (signature help), plus [d ]d ]D [D and
 					-- <C-W>d for diagnostics. Only map what those do not cover.
 					map("gd", vim.lsp.buf.definition, "goto definition", "textDocument/definition")
-					map("<C-]>", "<cmd>Telescope lsp_definitions<CR>", "goto definition (telescope)", "textDocument/definition")
+					map(
+						"<C-]>",
+						"<cmd>Telescope lsp_definitions<CR>",
+						"goto definition (telescope)",
+						"textDocument/definition"
+					)
 					map("K", vim.lsp.buf.hover, "hover documentation", "textDocument/hover")
 					map("<C-k>", vim.lsp.buf.signature_help, "signature help", "textDocument/signatureHelp")
 					map("<space>q", vim.diagnostic.setloclist, "diagnostics to loclist")
@@ -185,8 +190,7 @@ return {
 
 					-- highlight the other references to the symbol under the cursor
 					if client:supports_method("textDocument/documentHighlight") then
-						local group =
-							vim.api.nvim_create_augroup("lsp_document_highlight_" .. bufnr, { clear = true })
+						local group = vim.api.nvim_create_augroup("lsp_document_highlight_" .. bufnr, { clear = true })
 						vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 							group = group,
 							buffer = bufnr,
