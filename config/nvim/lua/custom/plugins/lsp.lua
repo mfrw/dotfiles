@@ -102,6 +102,27 @@ return {
 				servers.zls = {}
 			end
 
+			-- nixd is the server used for reviewing nixpkgs. Only register it
+			-- where it is actually present -- the NixOS review VM ships it in
+			-- the system closure -- so machines without it neither spawn a
+			-- missing binary nor ask mason to fetch one. Point it at a local
+			-- nixpkgs checkout when there is one so completion and option info
+			-- resolve against the tree being reviewed. The expression is a
+			-- plain path import rather than builtins.getFlake, which would
+			-- copy the entire multi-gigabyte working checkout into the store
+			-- on every evaluation.
+			if vim.fn.executable("nixd") == 1 then
+				local nixd = {
+					manual_install = true,
+					settings = { nixd = { formatting = { command = { "nixfmt" } } } },
+				}
+				local nixpkgs_dir = vim.fn.expand("~/nixpkgs")
+				if vim.uv.fs_stat(nixpkgs_dir) then
+					nixd.settings.nixd.nixpkgs = { expr = "import " .. nixpkgs_dir .. " { }" }
+				end
+				servers.nixd = nixd
+			end
+
 			local servers_to_install = vim.tbl_filter(function(key)
 				local t = servers[key]
 				if type(t) == "table" then
