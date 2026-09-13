@@ -123,23 +123,34 @@ return {
 				servers.nixd = nixd
 			end
 
-			local servers_to_install = vim.tbl_filter(function(key)
-				local t = servers[key]
-				if type(t) == "table" then
-					return not t.manual_install
-				else
-					return t
-				end
-			end, vim.tbl_keys(servers))
+			-- mason ships prebuilt binaries dynamically linked against FHS
+			-- paths that do not exist on NixOS, and upstream publishes no
+			-- aarch64-linux clangd at all, so mason can never satisfy this
+			-- list there. NixOS supplies the servers through the system
+			-- closure instead; since mason prepends its own bin/ to PATH,
+			-- letting it run would shadow those working binaries with broken
+			-- downloads. Detect rather than hard-code, as with zls above, so
+			-- this file stays identical on every machine.
+			if not vim.uv.fs_stat("/etc/NIXOS") then
+				local servers_to_install = vim.tbl_filter(function(key)
+					local t = servers[key]
+					if type(t) == "table" then
+						return not t.manual_install
+					else
+						return t
+					end
+				end, vim.tbl_keys(servers))
 
-			require("mason").setup()
-			local ensure_installed = {
-				-- "tailwind-language-server",
-				"stylua", -- formatter for lua, used by conform.nvim below
-			}
+				require("mason").setup()
+				local ensure_installed = {
+					-- "tailwind-language-server",
+					"stylua", -- formatter for lua, used by conform.nvim below
+				}
 
-			vim.list_extend(ensure_installed, servers_to_install)
-			require("mason-tool-installer").setup({ ensure_installed = ensure_installed, autoupdate = true })
+				vim.list_extend(ensure_installed, servers_to_install)
+				require("mason-tool-installer").setup({ ensure_installed = ensure_installed, autoupdate = true })
+			end
+
 			vim.lsp.config("*", {
 				capabilities = capabilities,
 			})
