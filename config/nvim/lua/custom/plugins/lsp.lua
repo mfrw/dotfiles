@@ -85,15 +85,22 @@ return {
 					init_options = { clangdFileStatus = true },
 					filetypes = { "c" },
 				},
-				-- built from source against zig master; mason only ships tagged
-				-- zls releases and zigtools publishes no nightlies, so a mason
-				-- zls always lags zig master by a minor version and mis-parses
-				-- its AST. rebuild with: git -C ~/zutils/zls pull && zig build -Doptimize=ReleaseSafe
-				zls = {
-					manual_install = true,
-					cmd = { vim.fn.expand("~/zutils/zls/zig-out/bin/zls") },
-				},
 			}
+
+			-- zls has to be picked per machine. mason only ships tagged zls
+			-- releases and zigtools publishes no nightlies, so a mason zls
+			-- lags zig master by a minor version and mis-parses its AST. On
+			-- machines tracking zig master, build zls from source with:
+			--   git -C ~/zutils/zls pull && zig build -Doptimize=ReleaseSafe
+			-- Detect that build rather than hard-coding either choice, so this
+			-- file stays identical everywhere: use it when present, otherwise
+			-- fall back to whatever mason provides.
+			local zls_src = vim.fn.expand("~/zutils/zls/zig-out/bin/zls")
+			if vim.uv.fs_stat(zls_src) then
+				servers.zls = { manual_install = true, cmd = { zls_src } }
+			else
+				servers.zls = {}
+			end
 
 			local servers_to_install = vim.tbl_filter(function(key)
 				local t = servers[key]
