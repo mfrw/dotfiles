@@ -247,17 +247,36 @@ return {
 				formatters_by_ft = {
 					lua = { "stylua" },
 				},
-			})
-
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				callback = function(args)
-					require("conform").format({
-						bufnr = args.buf,
-						lsp_fallback = true,
-						quiet = true,
-					})
+				format_on_save = function(bufnr)
+					if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+						return
+					end
+					return { lsp_format = "fallback", quiet = true }
 				end,
 			})
+
+			vim.api.nvim_create_user_command("FormatDisable", function(args)
+				if args.bang then
+					vim.b.disable_autoformat = true
+				else
+					vim.g.disable_autoformat = true
+				end
+			end, { desc = "disable autoformat-on-save (! for this buffer only)", bang = true })
+
+			vim.api.nvim_create_user_command("FormatEnable", function()
+				vim.b.disable_autoformat = false
+				vim.g.disable_autoformat = false
+			end, { desc = "re-enable autoformat-on-save" })
+
+			vim.keymap.set("n", "<space>tf", function()
+				if vim.g.disable_autoformat then
+					vim.cmd.FormatEnable()
+					vim.notify("autoformat on save: ON")
+				else
+					vim.cmd.FormatDisable()
+					vim.notify("autoformat on save: OFF")
+				end
+			end, { desc = "toggle autoformat-on-save" })
 		end,
 	},
 }
