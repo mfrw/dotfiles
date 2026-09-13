@@ -22,3 +22,7 @@ defaults:
   preview:
     open: true
     width: 100
+pager:
+  diff: delta
+repoPaths:
+  microsoft/azurelinux: ~/mariner-org/azurelinux
