@@ -47,4 +47,12 @@ if type -q pyenv
 	pyenv init - | source
 end
 
+if type -q azldev
+	source (azldev completion fish | psub)
+end
+
+if type -q tailscale
+	tailscale completion fish | source
+end
+
 setenv COLORTERM truecolor

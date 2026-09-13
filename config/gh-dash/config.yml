@@ -4,7 +4,7 @@ prSections:
   - title: Review
     filters: is:open user-review-requested:@me sort:updated
   - title: CBL-Mariner-Devs
-    filters: is:open review-requested:@me -author:CBL-Mariner-Bot repo:microsoft/CBL-Mariner sort:updated
+    filters: is:open review-requested:@me -author:CBL-Mariner-Bot repo:microsoft/azurelinux sort:updated
   - title: Reviewed
     filters: is:open reviewed-by:@me sort:updated
   - title: Subscribed
