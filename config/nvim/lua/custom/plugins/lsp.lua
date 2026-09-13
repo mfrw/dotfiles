@@ -88,21 +88,8 @@ return {
 					filetypes = { "c" },
 				},
 				-- pyright = { manual_install = true },
-				pylsp = {
-					settings = {
-						pylsp = {
-							plugins = {
-								pycodestyle = {
-									convention = "None",
-									ignore = { "W391", "pep8" },
-									maxLineLength = 180,
-								},
-								autopep8 = { enabled = false },
-							},
-						},
-					},
-				},
 				zls = true,
+				ty = true,
 			}
 
 			local servers_to_install = vim.tbl_filter(function(key)
@@ -116,9 +103,6 @@ return {
 
 			require("mason").setup()
 			local ensure_installed = {
-				"stylua",
-				"lua_ls",
-				"delve",
 				-- "tailwind-language-server",
 			}
 

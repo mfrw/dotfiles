@@ -3,6 +3,8 @@ require("custom.snippets")
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.shortmess:append("c")
 
+require("luasnip.loaders.from_vscode").lazy_load()
+
 local lspkind = require("lspkind")
 lspkind.init({})
 
@@ -13,6 +15,7 @@ cmp.setup({
 		{ name = "nvim_lsp" },
 		{ name = "cody" },
 		{ name = "path" },
+		{ name = "luasnip"},
 		{ name = "buffer" },
 	},
 	mapping = {
