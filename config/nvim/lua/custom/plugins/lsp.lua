@@ -157,7 +157,7 @@ return {
 						if method and not client:supports_method(method) then
 							return
 						end
-						vim.keymap.set("n", keys, fn, { buffer = bufnr, desc = "lsp: " .. desc })
+						vim.keymap.set("n", keys, fn, { buf = bufnr, desc = "lsp: " .. desc })
 					end
 
 					-- nvim already ships grn (rename), gra (code action, also in
