@@ -33,7 +33,3 @@ set("n", "<leader>f", "<cmd>:Neotree reveal<CR>", { desc = "Reveal File in Neotr
 
 -- Fugitive
 set("n", "<leader>g", "<cmd>:Git<CR>", { desc = "Open Fugitive Git" })
-
--- Telescope
-local telescope_builtin = require("telescope.builtin")
-set("n", "<space>lg", telescope_builtin.live_grep, { desc = "Live Grep" })
