@@ -1,9 +1,10 @@
 --[[
 -- Setup initial configuration,
--- 
+--
 -- Primarily just download and execute lazy.nvim
 --]]
 
+require("vim._core.ui2").enable()
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
